@@ -26,54 +26,62 @@
     <header>
         <h1>BuzzQuizz</h1>
     </header>
-    <div class="quiz-beginning">
+    <div class="quiz-beginning ">
         <h1>Comece pelo começo</h1>
-        <input type="text" class="quiz-basic-info" placeholder="Título do seu quizz">
-        </input>
-        <input type="text" class="quiz-basic-info" placeholder="URL da imagem do seu quizz">
-        </input>
-        <input type="text" class="quiz-basic-info" placeholder="Quantidade de perguntas do quizz">
-        </input>
-        <input type="text" class="quiz-basic-info" placeholder="Quantidade de níveis do quizz">
-        </input>
+        <div class="beginning-board">
+            <input type="text" id="quiz-title" placeholder="Título do seu quizz">
+            </input><br>
+            <input type="text" id="quiz-image-URL" placeholder="URL da imagem do seu quizz">
+            </input><br>
+            <input type="text" id="number-of-question" placeholder="Quantidade de perguntas do quizz">
+            </input><br>
+            <input type="text" id="number-of-levels" placeholder="Quantidade de níveis do quizz">
+            </input><br>
+        </div>
         <button type="button" class="red-button">Prosseguir pra criar perguntas</button>
     </div>
-
-    <div class="questions-creation">
+    <div class="questions-creation hide">
         <h1>Crie suas perguntas</h1>
-        <div class="quiz-questions">
+        <div class="questions-creation-board">
             <h2>Pergunta 1</h2>
             <div><input type="text" placeholder="Texto da pergunta" id="question-text">
-                </input>
+                </input><br>
                 <input type="text" placeholder="Cor de fundo da pergunta" id="question-background-color">
                 </input>
             </div>
-            <h3>Resposta correta</h3>
+            <h2>Resposta correta</h2>
             <div><input type="text" placeholder="Resposta correta" id="correct-answer">
-                </input>
+                </input><br>
                 <input type="text" placeholder="URL da imagem" id="image-URL">
                 </input>
             </div>
             <h2>Respostas incorreta</h2>
             <div><input type="text" placeholder="Resposta incorreta 1" id="incorrect-answer-1">
-                </input>
+                </input><br>
                 <input type="text" placeholder="URL da imagem 1" id="image-URL-1">
                 </input>
             </div>
 
             <div><input type="text" placeholder="Resposta incorreta 2" id="incorrect-answer-2">
-                </input>
+                </input><br>
                 <input type="text" placeholder="URL da imagem 2" id="image-URL-2">
                 </input>
             </div>
 
             <div><input type="text" placeholder="Resposta incorreta 3" id="incorrect-answer-3">
-                </input>
+                </input><br>
                 <input type="text" placeholder="URL da imagem 3" id="image-URL-3">
                 </input>
             </div>
         </div>
-
+        <div class="questions-creation-board">
+            <h2>Pergunta 2</h2>
+            <ion-icon name="create-outline"></ion-icon>
+        </div>
+        <div class="questions-creation-board">
+            <h2>Pergunta 3</h2>
+            <ion-icon name="create-outline"></ion-icon>
+        </div>
         <button type="button" class="red-button">Prosseguir para criar níveis</button>
     </div>
 

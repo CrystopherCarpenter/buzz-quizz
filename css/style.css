@@ -1,4 +1,159 @@
-*{
+body{
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif; 
+    padding-top: 69px;
 }
+
+body div{
+    background-color: #FAFAFA;
+}
+
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    top:0px;
+    left: 0px;
+
+    z-index: 10;
+
+    width: 100vw;
+    height: 69px;
+
+    background-color: #EC362D;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    font-weight: bold;
+    font-size: 37px;
+    color: #FFFFFF;
+}
+
+.quiz-beginning, .questions-creation{  /*dá pra usar nas outras telas de criação*/
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 71px;
+}
+
+.quiz-beginning h1, .questions-creation h1{ /*Todos os títulos seguem esse mesmo padrão*/
+    font-weight: bold;
+    font-size: 23px;
+    color: #000000;
+}
+
+.quiz-beginning h1{
+    margin-bottom: 27px;
+}
+
+.questions-creation h1{
+    margin-bottom: 36px;
+}
+
+.beginning-board, .questions-creation-board{ /*dá pra usar para quase todos os quadros, tanto da criação quanto da exibição de quiz*/
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    
+    width: 600px;
+    
+    padding-left: 20px;
+    padding-right: 16px;      
+}
+
+.beginning-board{
+    gap: 9px;
+    padding-top: 21px;              /*por causa do gap não funcionar para todos os itens e diferenças nas distâncias, o resultado ficou ruim, resolvi fazer um por um*/
+    padding-bottom: 15px;
+}
+
+.questions-creation-board{   
+    margin-top: 24px;               /*o gap não funciona no questions-creation-board*/
+    padding-top: 28px;
+    padding-bottom: 4px;
+    position: relative;
+}
+
+.questions-creation-board h2{                   
+    margin-bottom: 16px; 
+    font-weight: bold;
+    font-size: 20px;
+    
+    color: #000000;
+}
+
+.questions-creation-board div{
+    margin-bottom: 28px;
+    background-color: #FFFFFF;
+}
+
+.beginning-board input, .questions-creation-board input{ /*dá pra usar para quase todos os input*/
+    all: unset;
+    box-sizing: border-box;
+    
+    display: flex;
+    
+    justify-content: flex-start;
+    align-items: center;
+    
+    width: 100%;
+    height: 46px;
+
+    background-color: #FFFFFF;
+    
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    
+    font-style: italic;
+    font-weight: normal;
+    font-size: 19px;
+    color:#bababa;
+    
+    padding-left: 14px;
+}
+
+.questions-creation-board ion-icon{
+    font-size: 28px;
+
+    position: absolute;
+    top: 18px;
+    right: 20px;
+}
+
+.red-button{    /*Todos os botões vermelhos são iguais, só precisaremos mudar a margem de cada um depois*/
+    all:unset; 
+    box-sizing: border-box;
+
+    width: 370px;
+    height: 54px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background: #EC362D;
+    border-radius: 15px;
+
+    font-weight: normal;
+    font-size: 21px;
+    
+    color: #FFF5F4;
+}
+
+.quiz-beginning button, .questions-creation button{
+    margin-top: 85px;
+}
+
+.questions-creation-board ion-icon:hover, .red-button:hover{
+    cursor: pointer;
+    filter: brightness(0.9);
+}
+
+.hide{
+    display: none;
+}
+
