@@ -119,6 +119,7 @@ header{
 
     width: 500px;
     height: 266px;
+    object-fit: cover;
 
     margin-top: 15px;
 }
