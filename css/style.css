@@ -30,7 +30,7 @@ header{
     color: #FFFFFF;
 }
 
-.quiz-beginning, .questions-creation, .level-creation{  
+.quiz-beginning, .questions-creation, .level-creation, .quiz-success{  
     width: 100%;
     height: 100%;
 
@@ -41,7 +41,7 @@ header{
     padding-top: 71px;
 }
 
-.quiz-beginning h1, .questions-creation h1, .level-creation h1{ 
+.quiz-beginning h1, .questions-creation h1, .level-creation h1, .quiz-success h1{ 
     font-weight: bold;
     font-size: 23px;
     color: #000000;
@@ -66,7 +66,6 @@ header{
     flex-direction: column;
 
     justify-content: center;
-
 }
 
 .questions-creation-board h2, .level-creation-board h2{                   
@@ -114,7 +113,35 @@ header{
     right: 20px;
 }
 
-.red-button{    /*Todos os botões vermelhos são iguais, só precisaremos mudar a margem de cada um depois*/
+.quiz-success div img{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%);
+    border-radius: 5px;
+
+    width: 500px;
+    height: 266px;
+
+    margin-top: 15px;
+}
+
+.quiz-success div{
+     position: relative;
+}
+
+.quiz-success div p{
+    font-weight: normal;
+    font-size: 23px;
+
+    display: flex;
+    align-items: center;
+
+    color: #FFFFFF;
+
+    position: absolute;
+    left: 23px;
+    bottom: 16px;
+}
+
+.red-button, .home-button{        /*Todos os botões vermelhos são iguais, só precisaremos mudar a margem de cada um depois*/
     all:unset; 
     box-sizing: border-box;
 
@@ -134,11 +161,23 @@ header{
     color: #FFF5F4;
 }
 
-.quiz-beginning button, .questions-creation button, .level-creation button{
+.home-button{       /*Todos os botões home também são iguais*/
+    border-color: transparent;
+
+    background: transparent;
+
+    color: #818181;
+}
+
+.quiz-beginning button, .questions-creation button, .level-creation button, .quiz-success .red-button{
     margin-top: 85px;
 }
 
-.questions-creation-board ion-icon:hover, .level-creation-board ion-icon:hover, .red-button:hover{
+.home-button{
+    margin-top: 10px;
+}
+
+.questions-creation-board ion-icon:hover, .level-creation-board ion-icon:hover, .red-button:hover, .home-button:hover{
     cursor: pointer;
     filter: brightness(0.9);
 }
@@ -148,11 +187,11 @@ header{
 }
 
 @media (max-width: 1100px) {
-    .quiz-beginning, .questions-creation, .level-creation{
+    .quiz-beginning, .questions-creation, .level-creation, .quiz-success{
         padding-top: 38px;
     }
 
-    .quiz-beginning h1, .questions-creation h1, .level-creation h1{
+    .quiz-beginning h1, .questions-creation h1, .level-creation h1, .quiz-success h1{
         font-size: 20px;
 
     }
@@ -163,12 +202,24 @@ header{
         padding-left: 20px;
         padding-right: 16px;   
     } 
-
-    .red-button{
-        width: 324px;
+    
+    .quiz-success div img{
+        width: 340px;
+        height: 181px;
     }
 
-    .quiz-beginning button, .questions-creation button, .level-creation button{
+    .quiz-success div p{
+        font-size: 19px;
+        position: absolute;
+        left: 17px;
+        bottom: 7px;
+    }
+    .red-button, .home-button{
+        width: 324px;
+        font-size: 18px;
+    }
+    
+    .quiz-beginning button, .questions-creation button, .level-creation button, .quiz-success .red-button{
         margin-top: 30px;
 }   
 }
