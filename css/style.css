@@ -97,12 +97,17 @@ header{
     border: 1px solid #D1D1D1;
     border-radius: 5px;
     
-    font-style: italic;
+    font-style: normal;
     font-weight: normal;
     font-size: 19px;
-    color:#bababa;
+    color: #000;
     
     padding-left: 14px;
+}
+
+.beginning-board input::placeholder, .questions-creation-board input::placeholder, .level-creation-board input::placeholder{
+    color:#bababa; 
+    font-style: italic;
 }
 
 .questions-creation-board ion-icon, .level-creation-board ion-icon{
