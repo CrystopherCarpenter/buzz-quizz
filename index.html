@@ -36,36 +36,36 @@
             <input type="text" id="number-of-question" placeholder="Quantidade de perguntas do quizz">
             </input><br>
             <input type="text" id="number-of-levels" placeholder="Quantidade de níveis do quizz">
-            </input><br>
+            </input>
         </div>
         <button type="button" class="red-button">Prosseguir pra criar perguntas</button>
     </div>
-    <div class="questions-creation hide">
+    <div class="questions-creation">
         <h1>Crie suas perguntas</h1>
         <div class="questions-creation-board">
-            <h2>Pergunta 1</h2>
+            <h2>Pergunta 1</h2><br>
             <div><input type="text" placeholder="Texto da pergunta" id="question-text">
                 </input><br>
                 <input type="text" placeholder="Cor de fundo da pergunta" id="question-background-color">
-                </input>
+                </input><br>
             </div>
-            <h2>Resposta correta</h2>
+            <h2>Resposta correta</h2><br>
             <div><input type="text" placeholder="Resposta correta" id="correct-answer">
                 </input><br>
                 <input type="text" placeholder="URL da imagem" id="image-URL">
-                </input>
+                </input><br>
             </div>
-            <h2>Respostas incorreta</h2>
+            <h2>Respostas incorreta</h2><br>
             <div><input type="text" placeholder="Resposta incorreta 1" id="incorrect-answer-1">
                 </input><br>
                 <input type="text" placeholder="URL da imagem 1" id="image-URL-1">
-                </input>
+                </input><br>
             </div>
 
             <div><input type="text" placeholder="Resposta incorreta 2" id="incorrect-answer-2">
                 </input><br>
                 <input type="text" placeholder="URL da imagem 2" id="image-URL-2">
-                </input>
+                </input><br>
             </div>
 
             <div><input type="text" placeholder="Resposta incorreta 3" id="incorrect-answer-3">
@@ -84,6 +84,29 @@
         </div>
         <button type="button" class="red-button">Prosseguir para criar níveis</button>
     </div>
+
+    <div class="level-creation">
+        <h1>Agora, decida os níveis</h1>
+        <div class="level-creation-board">
+            <h2>Nível 1</h2><br>
+            <div><input type="text" placeholder="Título do nível" id="level-title">
+                </input><br>
+                <input type="text" placeholder="% de acerto mínima" id="%-right-answer">
+                </input><br>
+                <input type="text" placeholder="URL da imagem do nível" id="level-image-URL">
+                </input><br>
+                <input type="text" placeholder="Descrição do nível" id="level-description">
+                </input>
+            </div>
+
+        </div>
+        <div class="level-creation-board">
+            <h2>Nível 2</h2>
+            <ion-icon name="create-outline"></ion-icon>
+        </div>
+        <button type="button" class="red-button">Finalizar Quizz</button>
+    </div>
+
 
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
 

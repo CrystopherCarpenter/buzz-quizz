@@ -30,7 +30,7 @@ header{
     color: #FFFFFF;
 }
 
-.quiz-beginning, .questions-creation{  /*dá pra usar nas outras telas de criação*/
+.quiz-beginning, .questions-creation, .level-creation{  
     width: 100%;
     height: 100%;
 
@@ -41,54 +41,47 @@ header{
     padding-top: 71px;
 }
 
-.quiz-beginning h1, .questions-creation h1{ /*Todos os títulos seguem esse mesmo padrão*/
+.quiz-beginning h1, .questions-creation h1, .level-creation h1{ 
     font-weight: bold;
     font-size: 23px;
     color: #000000;
+    margin-bottom: 30px;
 }
 
-
-.questions-creation h1, .quiz-beginning h1{
-    margin-bottom: 29px;
-}
-
-.beginning-board, .questions-creation-board{ /*dá pra usar para quase todos os quadros, tanto da criação quanto da exibição de quiz*/
+.beginning-board, .questions-creation-board, .level-creation-board{ /*dá pra usar para quase todos os quadros, tanto da criação quanto da exibição de quiz*/
     background-color: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
     
     width: 600px;
     
-    padding-left: 20px;
-    padding-right: 16px;      
+    margin-top: 24px;
+
+    padding: 21px 20px 25px 16px;      
 }
 
-.beginning-board{
-    gap: 9px;
-    padding-top: 21px;              /*por causa do gap não funcionar para todos os itens e diferenças nas distâncias, o resultado ficou ruim, resolvi fazer um por um*/
-    padding-bottom: 15px;
-}
-
-.questions-creation-board{   
-    margin-top: 24px;               /*o gap não funciona no questions-creation-board*/
-    padding-top: 28px;
-    padding-bottom: 4px;
+.questions-creation-board, .level-creation-board{ 
     position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
 }
 
-.questions-creation-board h2{                   
-    margin-bottom: 16px; 
+.questions-creation-board h2, .level-creation-board h2{                   
     font-weight: bold;
     font-size: 20px;
     
     color: #000000;
 }
 
-.questions-creation-board div{
-    margin-bottom: 28px;
+.questions-creation-board div, .level-creation-board div{
+    margin-bottom: 13px;
     background-color: #FFFFFF;
 }
 
-.beginning-board input, .questions-creation-board input{ /*dá pra usar para quase todos os input*/
+.beginning-board input, .questions-creation-board input, .level-creation-board input{ /*dá pra usar para quase todos os input*/
     all: unset;
     box-sizing: border-box;
     
@@ -113,7 +106,7 @@ header{
     padding-left: 14px;
 }
 
-.questions-creation-board ion-icon{
+.questions-creation-board ion-icon, .level-creation-board ion-icon{
     font-size: 28px;
 
     position: absolute;
@@ -141,11 +134,11 @@ header{
     color: #FFF5F4;
 }
 
-.quiz-beginning button, .questions-creation button{
+.quiz-beginning button, .questions-creation button, .level-creation button{
     margin-top: 85px;
 }
 
-.questions-creation-board ion-icon:hover, .red-button:hover{
+.questions-creation-board ion-icon:hover, .level-creation-board ion-icon:hover, .red-button:hover{
     cursor: pointer;
     filter: brightness(0.9);
 }
@@ -155,12 +148,16 @@ header{
 }
 
 @media (max-width: 1100px) {
-    .quiz-beginning h1, .questions-creation h1{
+    .quiz-beginning, .questions-creation, .level-creation{
+        padding-top: 38px;
+    }
+
+    .quiz-beginning h1, .questions-creation h1, .level-creation h1{
         font-size: 20px;
 
     }
 
-    .beginning-board, .questions-creation-board{
+    .beginning-board, .questions-creation-board, .level-creation-board{
         width: 100%;
         box-sizing: border-box;
         padding-left: 20px;
@@ -171,7 +168,7 @@ header{
         width: 324px;
     }
 
-    .quiz-beginning button, .questions-creation button{
+    .quiz-beginning button, .questions-creation button, .level-creation button{
         margin-top: 30px;
 }   
 }
