@@ -9,10 +9,77 @@
     <meta name="keywords" content="BuzzQuizz, Dev Driven, Projeto 06" />
     <meta name="author" content="Crystopher Carpenter & Lukas Demani" />
 
+    <title>BuzzQuizz</title>
+
+    <link rel="stylesheet" href="css/reset.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
+    <header>
+        <h1>BuzzQuizz</h1>
+    </header>
+    <div class="quiz-beginning">
+        <h1>Comece pelo começo</h1>
+        <input type="text" class="quiz-basic-info" placeholder="Título do seu quizz">
+        </input>
+        <input type="text" class="quiz-basic-info" placeholder="URL da imagem do seu quizz">
+        </input>
+        <input type="text" class="quiz-basic-info" placeholder="Quantidade de perguntas do quizz">
+        </input>
+        <input type="text" class="quiz-basic-info" placeholder="Quantidade de níveis do quizz">
+        </input>
+        <button type="button" class="red-button">Prosseguir pra criar perguntas</button>
+    </div>
+
+    <div class="questions-creation">
+        <h1>Crie suas perguntas</h1>
+        <div class="quiz-questions">
+            <h2>Pergunta 1</h2>
+            <div><input type="text" placeholder="Texto da pergunta" id="question-text">
+                </input>
+                <input type="text" placeholder="Cor de fundo da pergunta" id="question-background-color">
+                </input>
+            </div>
+            <h3>Resposta correta</h3>
+            <div><input type="text" placeholder="Resposta correta" id="correct-answer">
+                </input>
+                <input type="text" placeholder="URL da imagem" id="image-URL">
+                </input>
+            </div>
+            <h2>Respostas incorreta</h2>
+            <div><input type="text" placeholder="Resposta incorreta 1" id="incorrect-answer-1">
+                </input>
+                <input type="text" placeholder="URL da imagem 1" id="image-URL-1">
+                </input>
+            </div>
+
+            <div><input type="text" placeholder="Resposta incorreta 2" id="incorrect-answer-2">
+                </input>
+                <input type="text" placeholder="URL da imagem 2" id="image-URL-2">
+                </input>
+            </div>
+
+            <div><input type="text" placeholder="Resposta incorreta 3" id="incorrect-answer-3">
+                </input>
+                <input type="text" placeholder="URL da imagem 3" id="image-URL-3">
+                </input>
+            </div>
+        </div>
+
+        <button type="button" class="red-button">Prosseguir para criar níveis</button>
+    </div>
+
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script src="js/script.js"></script>
 </body>
