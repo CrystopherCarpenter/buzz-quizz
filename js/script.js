@@ -1,3 +1,4 @@
+let quizz = { title: ``, image: ``, questions: [], levels: [] };
 let title;
 let url;
 let nQuestions;
@@ -115,8 +116,6 @@ function editQuestion(element) {
     `;
 }
 
-<<<<<<< HEAD
-=======
 function questionsCreation() {
     const questionsData = document.querySelectorAll(`.questions-creation-board input`);
     let question = { title: ``, color: ``, answers: [] };
@@ -222,7 +221,7 @@ function questionsCreation() {
                          return;
                      }
                      break;
- 
+
                  case 1:
                      if (colorValidation(aux.value)) {
                          question.color = aux.value;
@@ -231,7 +230,7 @@ function questionsCreation() {
                          return;
                      }
                      break;
- 
+
                  case 2:
                      if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
                          answer.text = aux.value;
@@ -241,7 +240,7 @@ function questionsCreation() {
                          return;
                      }
                      break;
- 
+
                  case 3:
                      if (urlValidation(aux.value)) {
                          answer.image = aux.value
@@ -251,44 +250,44 @@ function questionsCreation() {
                          return;
                      }
                      break;
- 
+
                  case 4:
                      if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
                          answer.text = aux.value;
                          answer.isCorrectAnswer = false;
                      } break;
- 
+
                  case 5:
                      if (urlValidation(aux.value)) {
                          answer.image = aux.value
                          question.answers.push(answer);
                      } break;
- 
+
                  case 6:
                      if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
                          answer.text = aux.value;
                          answer.isCorrectAnswer = false;
                      } break;
- 
+
                  case 7:
                      if (urlValidation(aux.value)) {
                          answer.image = aux.value
                          question.answers.push(answer);
                      } break;
- 
+
                  case 8:
                      if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
                          answer.text = aux.value;
                          answer.isCorrectAnswer = false;
                      } break;
- 
+
                  case 9:
                      if (urlValidation(aux.value)) {
                          answer.image = aux.value
                          question.answers.push(answer);
                      }
                      break;
- 
+
                  default:
                      break;
              }*/
@@ -317,7 +316,6 @@ function colorValidation(color) {
 
     regExp.lastIndex = 0;
 }
->>>>>>> cb427d5091adcf0091007f1ba99f547f389c9366
 function getQuizzes() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
     promise.then(quizzesDisplay);
@@ -328,19 +326,19 @@ function quizzesDisplay(date) {
 
     if (quizz != null) {
         //exibe os quizzes criados pelo usuário
-        for (let i = 0; i<quizz.length; i++) {
+        for (let i = 0; i < quizz.length; i++) {
             document.querySelector(".created-quizzes").innerHTML += `
             <div class="quizz" onclick="selectQuizz(this)">
             <img src="${quizz[i].image}" alt="">
             <p>${quizz[i].title}</p>
             </div>`
         }
-    }else{
+    } else {
 
     }
 
     //exibe todos os quizzes
-    for (let i = 0; i<quizz.length;i++) {
+    for (let i = 0; i < quizz.length; i++) {
         document.querySelector(".all-quizzes").innerHTML += `
         <div class="quizz" onclick="selectQuizz(this)">
             <img src="${quizz[i].image}" alt="">
@@ -351,16 +349,16 @@ function quizzesDisplay(date) {
 
 // hidePage - classe da página que deseja esconder
 // showPage - classe da página que deseja mostrar
-function changePage(hidePage, showPage){
+function changePage(hidePage, showPage) {
     document.querySelector(hidePage).classList.add("hide");
     document.querySelector(showPage).classList.remove("hide");
 }
 
-function selectQuizz () {
+function selectQuizz() {
 
 }
 
-function displayQuizz(selectedQuizz){
+function displayQuizz(selectedQuizz) {
     const id = selectedQuizz
 }
 
