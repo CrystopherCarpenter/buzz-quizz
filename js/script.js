@@ -115,6 +115,115 @@ function editQuestion(element) {
     `;
 }
 
+<<<<<<< HEAD
+=======
+function questionsCreation() {
+    const questionsData = document.querySelectorAll(`.questions-creation-board input`);
+    let question = { title: ``, color: ``, answers: [] };
+    let answer = { text: ``, image: ``, isCorrectAnswer: `` }
+    let aux;
+
+    for (let i = 0; i < nQuestions; i++) {
+        for (let j = 0; j < 10; j++) {
+            aux = ((questionsData[(10 * i) + j]));
+
+            switch (j) {
+                case 0:
+                    if (aux.value.length >= 20) {
+                        question.title = aux.value;
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
+                        return;
+                    }
+                    break;
+
+                case 1:
+                    if (colorValidation(aux.value)) {
+                        question.color = aux.value;
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
+                        return;
+                    }
+                    break;
+
+                case 2:
+                    if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                        answer.text = aux.value;
+                        answer.isCorrectAnswer = true;
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
+                        return;
+                    }
+                    break;
+
+                case 3:
+                    if (urlValidation(aux.value)) {
+                        answer.image = aux.value
+                        question.answers.push(answer);
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
+                        return;
+                    }
+                    break;
+
+                case 4:
+                    if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                        answer.text = aux.value;
+                        answer.isCorrectAnswer = false;
+                    } break;
+
+                case 5:
+                    if (urlValidation(aux.value)) {
+                        answer.image = aux.value
+                        question.answers.push(answer);
+                    } break;
+
+                case 6:
+                    if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                        answer.text = aux.value;
+                        answer.isCorrectAnswer = false;
+                    } break;
+
+                case 7:
+                    if (urlValidation(aux.value)) {
+                        answer.image = aux.value
+                        question.answers.push(answer);
+                    } break;
+
+                case 8:
+                    if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                        answer.text = aux.value;
+                        answer.isCorrectAnswer = false;
+                    } break;
+
+                case 9:
+                    if (urlValidation(aux.value)) {
+                        answer.image = aux.value
+                        question.answers.push(answer);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+        /* if (question.answers[1] === null || question.answers[1] === undefined || question.answers[1] === ``) {
+           alert(`Por favor, verifique e preencha os campos corretamente sem incorreta`)
+         return;
+       }*/
+        quizz.questions.push(question);
+    }
+}
+
+function colorValidation(color) {
+    const regExp = /[#0-9A-F]{7}/gi;
+
+    return (regExp.test(color))
+
+    regExp.lastIndex = 0;
+}
+>>>>>>> cb427d5091adcf0091007f1ba99f547f389c9366
 function getQuizzes() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
     promise.then(quizzesDisplay);
