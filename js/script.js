@@ -115,8 +115,44 @@ function editQuestion(element) {
     `;
 }
 
-<<<<<<< HEAD
-=======
+function getQuizzes() {
+    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
+    promise.then(quizzesDisplay);
+}
+
+function quizzesDisplay(date) {
+    let quizz = date;
+
+    if (quizz != null) {
+        //exibe os quizzes criados pelo usuário
+        for (let i = 0; i<quizz.length; i++) {
+            document.querySelector(".created-quizzes").innerHTML += `
+            <div class="quizz" onclick="selectQuizz(this)">
+            <img src="${quizz[i].image}" alt="">
+            <p>${quizz[i].title}</p>
+            </div>`
+        }
+    }else{
+
+    }
+
+    //exibe todos os quizzes
+    for (let i = 0; i<quizz.length;i++) {
+        document.querySelector(".all-quizzes").innerHTML += `
+        <div class="quizz" onclick="solectQuizz(this)">
+            <img src="${quizz[i].image}" alt="">
+            <p>${quizz[i].title}</p>
+        </div>`
+    }
+}
+
+// hidePage - classe da página que deseja esconder
+// showPage - classe da página que deseja mostrar
+function changePage(hidePage, showPage){
+    document.querySelector(hidePage).classList.add("hide");
+    document.querySelector(showPage).classList.remove("hide");
+}
+
 function questionsCreation() {
     const questionsData = document.querySelectorAll(`.questions-creation-board input`);
     let question = { title: ``, color: ``, answers: [] };
@@ -223,47 +259,9 @@ function colorValidation(color) {
 
     regExp.lastIndex = 0;
 }
->>>>>>> cb427d5091adcf0091007f1ba99f547f389c9366
-function getQuizzes() {
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
-    promise.then(quizzesDisplay);
-}
 
-function quizzesDisplay(date) {
-    let quizz = date;
-
-    if (quizz != null) {
-        //exibe os quizzes criados pelo usuário
-        for (let i = 0; i<quizz.length; i++) {
-            document.querySelector(".created-quizzes").innerHTML += `
-            <div class="quizz" onclick="selectQuizz(this)">
-            <img src="${quizz[i].image}" alt="">
-            <p>${quizz[i].title}</p>
-            </div>`
-        }
-    }else{
-
-    }
-
-    //exibe todos os quizzes
-    for (let i = 0; i<quizz.length;i++) {
-        document.querySelector(".all-quizzes").innerHTML += `
-        <div class="quizz" onclick="selectQuizz(this)">
-            <img src="${quizz[i].image}" alt="">
-            <p>${quizz[i].title}</p>
-        </div>`
-    }
-}
-
-// hidePage - classe da página que deseja esconder
-// showPage - classe da página que deseja mostrar
-function changePage(hidePage, showPage){
-    document.querySelector(hidePage).classList.add("hide");
-    document.querySelector(showPage).classList.remove("hide");
-}
-
-function selectQuizz () {
-
+function selectQuizz(selectedQuizz){
+    const selectTitle = selectedQuizz.querySelector("p").innerHTML
 }
 
 function displayQuizz(selectedQuizz){
