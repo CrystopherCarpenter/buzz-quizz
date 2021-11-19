@@ -1,5 +1,5 @@
-let title;
-let url;
+let quizz = { title: ``, image: ``, questions: [], levels: [] };
+
 let nQuestions;
 let nLevels;
 
@@ -9,13 +9,13 @@ function infoValidation() {
     let testLevels;
     let testQuestions;
 
-    title = document.querySelector(`.quiz-title`).value;
-    url = document.querySelector(`.quiz-image-URL`).value;
+    quizz.title = document.querySelector(`.quiz-title`).value;
+    quizz.image = document.querySelector(`.quiz-image-URL`).value;
     nQuestions = document.querySelector(`.number-of-questions`).value;
     nLevels = document.querySelector(`.number-of-levels`).value;
 
-    testTitle = titleValidation(title);
-    testUrl = urlValidation(url);
+    testTitle = quizTitleValidation(quizz.title);
+    testUrl = urlValidation(quizz.image);
     testQuestions = parseInt(nQuestions) >= 3;
     testLevels = parseInt(nLevels) >= 2;
 
@@ -33,7 +33,7 @@ function infoValidation() {
     )
 }
 
-function titleValidation(title) {
+function quizTitleValidation(title) {
     if (title.length >= 20 && title.length <= 65) {
         return true;
     } else {
@@ -58,26 +58,25 @@ function urlValidation(imageUrl) {
 }
 
 function printQuestions() {
-    let questionsCreation = document.querySelector(`.questions-creation`);
+    const questions = document.querySelector(`.questions-creation`);
 
     for (let i = 1; i <= nQuestions; i++) {
-        questionsCreation.innerHTML += `
+        questions.innerHTML += `
         <div class="questions-creation-board">
             <h2>Pergunta ${i}</h2><br>
             <ion-icon name="create-outline" onclick="editQuestion(this)"></ion-icon>
         </div>`;
 
     }
-    questionsCreation.innerHTML += `
-    <button type="button" class="red-button">Prosseguir para criar níveis</button>
+    questions.innerHTML += `
+    <button type="button" class="red-button" onclick="questionsCreation()">Prosseguir para criar níveis</button>
     `;
 
     editQuestion(document.querySelector(`.questions-creation-board ion-icon`))
 }
 
-
 function editQuestion(element) {
-    let question = element.parentElement;
+    const question = element.parentElement;
 
     element.classList.add(`hide`);
 
@@ -112,4 +111,111 @@ function editQuestion(element) {
                 </input>
             </div>
     `;
+}
+
+function questionsCreation() {
+    const questionsData = document.querySelectorAll(`.questions-creation-board input`);
+    let question = { title: ``, color: ``, answers: [] };
+    let answer = { text: ``, image: ``, isCorrectAnswer: `` }
+    let aux;
+
+    for (let i = 0; i < nQuestions; i++) {
+        for (let j = 0; j < 10; j++) {
+            aux = ((questionsData[(10 * i) + j]))
+
+            switch (j) {
+                case 0:
+                    if (aux.value.length >= 20) {
+                        question.title = aux.value;
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
+                        return;
+                    }
+                    break;
+
+                case 1:
+                    if (colorValidation(aux.value)) {
+                        question.color = aux.value;
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
+                        return;
+                    }
+                    break;
+
+                case 2:
+                    if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                        answer.text = aux.value;
+                        answer.isCorrectAnswer = true;
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
+                        return;
+                    }
+                    break;
+
+                case 3:
+                    if (urlValidation(aux.value)) {
+                        answer.image = aux.value
+                        question.answers.push(answer);
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
+                        return;
+                    }
+                    break;
+
+                case 4:
+                    if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                        answer.text = aux.value;
+                        answer.isCorrectAnswer = false;
+                    } break;
+
+                case 5:
+                    if (urlValidation(aux.value)) {
+                        answer.image = aux.value
+                        question.answers.push(answer);
+                    } break;
+
+                case 6:
+                    if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                        answer.text = aux.value;
+                        answer.isCorrectAnswer = false;
+                    } break;
+
+                case 7:
+                    if (urlValidation(aux.value)) {
+                        answer.image = aux.value
+                        question.answers.push(answer);
+                    } break;
+
+                case 8:
+                    if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                        answer.text = aux.value;
+                        answer.isCorrectAnswer = false;
+                    } break;
+
+                case 9:
+                    if (urlValidation(aux.value)) {
+                        answer.image = aux.value
+                        question.answers.push(answer);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+            /* if (question.answers[1] === null || question.answers[1] === undefined || question.answers[1] === ``) {
+               alert(`Por favor, verifique e preencha os campos corretamente sem incorreta`)
+             return;
+           }*/
+        }
+        quizz.questions.push(question);
+    }
+}
+
+function colorValidation(color) {
+    const regExp = /[#0-9A-F]{7}/gi;
+
+    return (regExp.test(color))
+
+    regExp.lastIndex = 0;
 }
