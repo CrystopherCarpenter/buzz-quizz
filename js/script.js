@@ -21,8 +21,9 @@ function infoValidation() {
 
     if (testTitle && testUrl && testQuestions && testLevels) {
         printQuestions();
-        document.querySelector(`.quiz-beginning`).classList.add(`hide`);
-        document.querySelector(`.questions-creation`).classList.remove(`hide`);
+        // document.querySelector(`.quiz-beginning`).classList.add(`hide`);
+        // document.querySelector(`.questions-creation`).classList.remove(`hide`);
+        changePage(".quiz-beginning", ".questions-creation");
 
         document.querySelector(`.quiz-title`).value = ``;
         document.querySelector(`.quiz-image-URL`).value = ``;
@@ -123,10 +124,10 @@ function quizzesDisplay(date) {
     let quizz = date;
 
     if (quizz != null) {
-        //axibe os quizzes criados pelo usuário
+        //exibe os quizzes criados pelo usuário
         for (let i = 0; i<quizz.length; i++) {
             document.querySelector(".created-quizzes").innerHTML += `
-            <div class="quizz">
+            <div class="quizz" onclick="selectQuizz(this)">
             <img src="${quizz[i].image}" alt="">
             <p>${quizz[i].title}</p>
             </div>`
@@ -138,11 +139,26 @@ function quizzesDisplay(date) {
     //exibe todos os quizzes
     for (let i = 0; i<quizz.length;i++) {
         document.querySelector(".all-quizzes").innerHTML += `
-        <div class="quizz">
+        <div class="quizz" onclick="selectQuizz(this)">
             <img src="${quizz[i].image}" alt="">
             <p>${quizz[i].title}</p>
         </div>`
     }
+}
+
+// hidePage - classe da página que deseja esconder
+// showPage - classe da página que deseja mostrar
+function changePage(hidePage, showPage){
+    document.querySelector(hidePage).classList.add("hide");
+    document.querySelector(showPage).classList.remove("hide");
+}
+
+function selectQuizz () {
+
+}
+
+function displayQuizz(selectedQuizz){
+    const id = selectedQuizz
 }
 
 getQuizzes();

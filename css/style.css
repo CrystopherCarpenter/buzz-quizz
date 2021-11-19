@@ -86,6 +86,11 @@ header{
     color: #EC362D;
 }
 
+.create-quizz:hover {
+    cursor: pointer;
+    filter: brightness(0.9);
+}
+
 .quizz {
     width: 340px;
     height: 180px;
@@ -93,7 +98,7 @@ header{
 
 .all-quizzes {
     width: 100%;
-    
+
     display: flex;
     justify-content: left;
 }
@@ -262,6 +267,20 @@ header{
 
 .hide{
     display: none;
+}
+
+.quizz-page {
+    width: 100%;
+}
+
+.quizz-title {
+    width: 100%;
+    height: 222px;
+}
+
+.quizz-question {
+    width: 759px;
+    height: 676px;
 }
 
 @media (max-width: 1100px) {

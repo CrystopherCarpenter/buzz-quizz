@@ -32,7 +32,7 @@
             <div class="no-quizz">
                 <p>Você não criou nenhum<br/>
                 quizz ainda :(</p>
-                <button class="create-quizz">Criar Quizz</button>
+                <button class="create-quizz" onclick="changePage('.main-page', '.quiz-beginning')">Criar Quizz</button>
             </div>
         </div>
 
@@ -87,6 +87,11 @@
         </div>
         <button type="button" class="red-button">Acessar Quizz</button>
         <button type="button" class="home-button">Voltar pra home</button>
+    </div>
+
+    <div class="quizz-page">
+        <div class="quizz-title"></div>
+        <div class="questions"></div>
     </div>
 
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
