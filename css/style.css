@@ -2,6 +2,7 @@ body{
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif; 
     padding-top: 69px;
+    padding-bottom: 50px;
 }
 
 body div{

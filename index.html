@@ -29,13 +29,13 @@
     <div class="quiz-beginning">
         <h1>Comece pelo começo</h1>
         <div class="beginning-board">
-            <input type="text" id="quiz-title" placeholder="Título do seu quizz">
+            <input type="text" class="quiz-title" placeholder="Título do seu quizz">
             </input><br>
-            <input type="text" id="quiz-image-URL" placeholder="URL da imagem do seu quizz">
+            <input type="text" class="quiz-image-URL" placeholder="URL da imagem do seu quizz">
             </input><br>
-            <input type="text" id="number-of-questions" placeholder="Quantidade de perguntas do quizz">
+            <input type="text" class="number-of-questions" placeholder="Quantidade de perguntas do quizz">
             </input><br>
-            <input type="text" id="number-of-levels" placeholder="Quantidade de níveis do quizz">
+            <input type="text" class="number-of-levels" placeholder="Quantidade de níveis do quizz">
             </input>
         </div>
         <button type="button" class="red-button" onclick="infoValidation()">Prosseguir pra
@@ -43,60 +43,19 @@
     </div>
     <div class="questions-creation hide">
         <h1>Crie suas perguntas</h1>
-        <div class="questions-creation-board">
-            <h2>Pergunta 1</h2><br>
-            <div><input type="text" placeholder="Texto da pergunta" id="question-text">
-                </input><br>
-                <input type="text" placeholder="Cor de fundo da pergunta" id="question-background-color">
-                </input><br>
-            </div>
-            <h2>Resposta correta</h2><br>
-            <div><input type="text" placeholder="Resposta correta" id="correct-answer">
-                </input><br>
-                <input type="text" placeholder="URL da imagem" id="image-URL">
-                </input><br>
-            </div>
-            <h2>Respostas incorreta</h2><br>
-            <div><input type="text" placeholder="Resposta incorreta 1" id="incorrect-answer-1">
-                </input><br>
-                <input type="text" placeholder="URL da imagem 1" id="image-URL-1">
-                </input><br>
-            </div>
-
-            <div><input type="text" placeholder="Resposta incorreta 2" id="incorrect-answer-2">
-                </input><br>
-                <input type="text" placeholder="URL da imagem 2" id="image-URL-2">
-                </input><br>
-            </div>
-
-            <div><input type="text" placeholder="Resposta incorreta 3" id="incorrect-answer-3">
-                </input><br>
-                <input type="text" placeholder="URL da imagem 3" id="image-URL-3">
-                </input>
-            </div>
-        </div>
-        <div class="questions-creation-board">
-            <h2>Pergunta 2</h2>
-            <ion-icon name="create-outline"></ion-icon>
-        </div>
-        <div class="questions-creation-board">
-            <h2>Pergunta 3</h2>
-            <ion-icon name="create-outline"></ion-icon>
-        </div>
-        <button type="button" class="red-button">Prosseguir para criar níveis</button>
     </div>
 
     <div class="level-creation hide">
         <h1>Agora, decida os níveis</h1>
         <div class="level-creation-board">
             <h2>Nível 1</h2><br>
-            <div><input type="text" placeholder="Título do nível" id="level-title">
+            <div><input type="text" placeholder="Título do nível" class="level-title">
                 </input><br>
-                <input type="text" placeholder="% de acerto mínima" id="%-right-answer">
+                <input type="text" placeholder="% de acerto mínima" class="%-right-answer">
                 </input><br>
-                <input type="text" placeholder="URL da imagem do nível" id="level-image-URL">
+                <input type="text" placeholder="URL da imagem do nível" class="level-image-URL">
                 </input><br>
-                <input type="text" placeholder="Descrição do nível" id="level-description">
+                <input type="text" placeholder="Descrição do nível" class="level-description">
                 </input>
             </div>
 
