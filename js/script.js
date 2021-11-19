@@ -22,8 +22,8 @@ function infoValidation() {
 
     if (testTitle && testUrl && testQuestions && testLevels) {
         printQuestions();
-        // document.querySelector(`.quiz-beginning`).classList.add(`hide`);
-        // document.querySelector(`.questions-creation`).classList.remove(`hide`);
+        //document.querySelector(`.quiz-beginning`).classList.add(`hide`);
+        //document.querySelector(`.questions-creation`).classList.remove(`hide`);
         changePage(".quiz-beginning", ".questions-creation");
 
         document.querySelector(`.quiz-title`).value = ``;
@@ -71,7 +71,7 @@ function printQuestions() {
 
     }
     questionsCreation.innerHTML += `
-    <button type="button" class="red-button">Prosseguir para criar níveis</button>
+    <button type="button" class="red-button" onclick="questionsCreation()">Prosseguir para criar níveis</button>
     `;
 
     editQuestion(document.querySelector(`.questions-creation-board ion-icon`))
@@ -126,9 +126,15 @@ function questionsCreation() {
         for (let j = 0; j < 10; j++) {
             aux = ((questionsData[(10 * i) + j]));
 
+            console.log(`antes dos if, dentro do loop j`, j, question)
+            console.log(`antes dos if, dentro do loop j`, j, answer)
+            console.log(`antes dos if, dentro do loop j`, j, quizz)
             if (j === 0) {
                 if (aux.value.length >= 20) {
                     question.title = aux.value;
+                    console.log(j, question)
+                    console.log(j, answer)
+                    console.log(j, quizz)
 
                 } else {
                     alert(`Por favor, verifique e preencha os campos corretamente`)
