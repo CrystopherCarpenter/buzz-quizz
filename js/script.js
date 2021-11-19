@@ -113,3 +113,31 @@ function editQuestion(element) {
             </div>
     `;
 }
+
+function getQuizzes() {
+    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
+    promise.then(quizzesDisplay);
+    promise.catch(noQuizzes);
+}
+
+function quizzesDisplay(date) {
+    let quizz = date;
+
+    //axibe os quizzes criados pelo usuário
+    for (let i = 0; i<quizz.length; i++) {
+        document.querySelector(".created-quizzes").innerHTML += `
+        <div class="quizz">
+            <img src="${quizz[i].image}" alt="">
+            <p>${quizz[i].title}</p>
+        </div>`
+    }
+
+    //exibe todos os quizzes
+    for (let i = 0; i<quizz.length;i++) {
+        document.querySelector(".all-quizzes").innerHTML += `
+        <div class="quizz">
+            <img src="${quizz[i].image}" alt="">
+            <p>${quizz[i].title}</p>
+        </div>`
+    }
+}
