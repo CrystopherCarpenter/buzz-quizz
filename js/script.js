@@ -196,9 +196,19 @@ function questionsCreation() {
 
 function colorValidation(color) {
     const regExp = /[#0-9A-F]{7}/gi;
-
-    return (regExp.test(color))
-    regExp.lastIndex = 0;
+    if (color.length > 7) {
+        return false;
+    }
+    if (color[0] === `#`) {
+        for (let i = 1; i < color.length; i++) {
+            if (color[i] === `#`) {
+                return false;
+            }
+        }
+        return (regExp.test(color))
+    } else {
+        return false;
+    }
 }
 
 function getQuizzes() {
