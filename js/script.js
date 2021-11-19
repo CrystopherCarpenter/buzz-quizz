@@ -121,7 +121,7 @@ function questionsCreation() {
 
     for (let i = 0; i < nQuestions; i++) {
         for (let j = 0; j < 10; j++) {
-            aux = ((questionsData[(10 * i) + j]))
+            aux = ((questionsData[(10 * i) + j]));
 
             switch (j) {
                 case 0:
@@ -203,11 +203,11 @@ function questionsCreation() {
                     break;
             }
 
-            /* if (question.answers[1] === null || question.answers[1] === undefined || question.answers[1] === ``) {
-               alert(`Por favor, verifique e preencha os campos corretamente sem incorreta`)
-             return;
-           }*/
         }
+        /* if (question.answers[1] === null || question.answers[1] === undefined || question.answers[1] === ``) {
+           alert(`Por favor, verifique e preencha os campos corretamente sem incorreta`)
+         return;
+       }*/
         quizz.questions.push(question);
     }
 }
