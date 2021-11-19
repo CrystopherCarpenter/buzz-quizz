@@ -1,5 +1,5 @@
-let quizz = { title: ``, image: ``, questions: [], levels: [] };
-
+let title;
+let url;
 let nQuestions;
 let nLevels;
 
@@ -9,20 +9,21 @@ function infoValidation() {
     let testLevels;
     let testQuestions;
 
-    quizz.title = document.querySelector(`.quiz-title`).value;
-    quizz.image = document.querySelector(`.quiz-image-URL`).value;
+    title = document.querySelector(`.quiz-title`).value;
+    url = document.querySelector(`.quiz-image-URL`).value;
     nQuestions = document.querySelector(`.number-of-questions`).value;
     nLevels = document.querySelector(`.number-of-levels`).value;
 
-    testTitle = quizTitleValidation(quizz.title);
-    testUrl = urlValidation(quizz.image);
+    testTitle = titleValidation(title);
+    testUrl = urlValidation(url);
     testQuestions = parseInt(nQuestions) >= 3;
     testLevels = parseInt(nLevels) >= 2;
 
     if (testTitle && testUrl && testQuestions && testLevels) {
         printQuestions();
-        document.querySelector(`.quiz-beginning`).classList.add(`hide`);
-        document.querySelector(`.questions-creation`).classList.remove(`hide`);
+        // document.querySelector(`.quiz-beginning`).classList.add(`hide`);
+        // document.querySelector(`.questions-creation`).classList.remove(`hide`);
+        changePage(".quiz-beginning", ".questions-creation");
 
         document.querySelector(`.quiz-title`).value = ``;
         document.querySelector(`.quiz-image-URL`).value = ``;
@@ -33,7 +34,7 @@ function infoValidation() {
     )
 }
 
-function quizTitleValidation(title) {
+function titleValidation(title) {
     if (title.length >= 20 && title.length <= 65) {
         return true;
     } else {
@@ -58,25 +59,26 @@ function urlValidation(imageUrl) {
 }
 
 function printQuestions() {
-    const questions = document.querySelector(`.questions-creation`);
+    let questionsCreation = document.querySelector(`.questions-creation`);
 
     for (let i = 1; i <= nQuestions; i++) {
-        questions.innerHTML += `
+        questionsCreation.innerHTML += `
         <div class="questions-creation-board">
             <h2>Pergunta ${i}</h2><br>
             <ion-icon name="create-outline" onclick="editQuestion(this)"></ion-icon>
         </div>`;
 
     }
-    questions.innerHTML += `
-    <button type="button" class="red-button" onclick="questionsCreation()">Prosseguir para criar níveis</button>
+    questionsCreation.innerHTML += `
+    <button type="button" class="red-button">Prosseguir para criar níveis</button>
     `;
 
     editQuestion(document.querySelector(`.questions-creation-board ion-icon`))
 }
 
+
 function editQuestion(element) {
-    const question = element.parentElement;
+    let question = element.parentElement;
 
     element.classList.add(`hide`);
 
@@ -113,6 +115,8 @@ function editQuestion(element) {
     `;
 }
 
+<<<<<<< HEAD
+=======
 function questionsCreation() {
     const questionsData = document.querySelectorAll(`.questions-creation-board input`);
     let question = { title: ``, color: ``, answers: [] };
@@ -313,6 +317,7 @@ function colorValidation(color) {
 
     regExp.lastIndex = 0;
 }
+>>>>>>> cb427d5091adcf0091007f1ba99f547f389c9366
 function getQuizzes() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
     promise.then(quizzesDisplay);
@@ -322,26 +327,41 @@ function quizzesDisplay(date) {
     let quizz = date;
 
     if (quizz != null) {
-        //axibe os quizzes criados pelo usuário
-        for (let i = 0; i < quizz.length; i++) {
+        //exibe os quizzes criados pelo usuário
+        for (let i = 0; i<quizz.length; i++) {
             document.querySelector(".created-quizzes").innerHTML += `
-            <div class="quizz">
+            <div class="quizz" onclick="selectQuizz(this)">
             <img src="${quizz[i].image}" alt="">
             <p>${quizz[i].title}</p>
             </div>`
         }
-    } else {
+    }else{
 
     }
 
     //exibe todos os quizzes
-    for (let i = 0; i < quizz.length; i++) {
+    for (let i = 0; i<quizz.length;i++) {
         document.querySelector(".all-quizzes").innerHTML += `
-        <div class="quizz">
+        <div class="quizz" onclick="selectQuizz(this)">
             <img src="${quizz[i].image}" alt="">
             <p>${quizz[i].title}</p>
         </div>`
     }
+}
+
+// hidePage - classe da página que deseja esconder
+// showPage - classe da página que deseja mostrar
+function changePage(hidePage, showPage){
+    document.querySelector(hidePage).classList.add("hide");
+    document.querySelector(showPage).classList.remove("hide");
+}
+
+function selectQuizz () {
+
+}
+
+function displayQuizz(selectedQuizz){
+    const id = selectedQuizz
 }
 
 getQuizzes();
