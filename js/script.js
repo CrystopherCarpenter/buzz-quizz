@@ -81,33 +81,33 @@ function editQuestion(element) {
     element.classList.add(`hide`);
 
     question.innerHTML += `
-    <div><input type="text" placeholder="Texto da pergunta" class="question-text">
+    <div><input type="text" placeholder="Texto da pergunta (min 20 letras)" class="question-text">
                 </input><br>
-                <input type="text" placeholder="Cor de fundo da pergunta" class="question-background-color">
+                <input type="text" placeholder="Cor de fundo da pergunta (hexadecimal '#000000')" class="question-background-color">
                 </input><br>
             </div>
             <h2>Resposta correta</h2><br>
-            <div><input type="text" placeholder="Resposta correta" class="correct-answer">
+            <div><input type="text" placeholder="Resposta correta (não pode estar em branco)" class="correct-answer">
                 </input><br>
-                <input type="text" placeholder="URL da imagem" class="image-URL">
+                <input type="text" placeholder="URL da imagem ('http:...')" class="image-URL">
                 </input><br>
             </div>
             <h2>Respostas incorreta</h2><br>
-            <div><input type="text" placeholder="Resposta incorreta 1" class="incorrect-answer">
+            <div><input type="text" placeholder="Resposta incorreta 1 (pelo menos 1 incorreta)" class="incorrect-answer">
                 </input><br>
-                <input type="text" placeholder="URL da imagem 1" class="image-URL-incorrect">
+                <input type="text" placeholder="URL da imagem 1 ('http:...')" class="image-URL-incorrect">
                 </input><br>
             </div>
 
             <div><input type="text" placeholder="Resposta incorreta 2" class="incorrect-answer">
                 </input><br>
-                <input type="text" placeholder="URL da imagem 2" class="image-URL-incorrect">
+                <input type="text" placeholder="URL da imagem 2 ('http:...')" class="image-URL-incorrect">
                 </input><br>
             </div>
 
             <div><input type="text" placeholder="Resposta incorreta 3" class="incorrect-answer">
                 </input><br>
-                <input type="text" placeholder="URL da imagem 3" class="image-URL-incorrect">
+                <input type="text" placeholder="URL da imagem 3 ('http:...')" class="image-URL-incorrect">
                 </input>
             </div>
     `;
@@ -123,85 +123,171 @@ function questionsCreation() {
         for (let j = 0; j < 10; j++) {
             aux = ((questionsData[(10 * i) + j]));
 
-            switch (j) {
-                case 0:
-                    if (aux.value.length >= 20) {
-                        question.title = aux.value;
-                    } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente`)
-                        return;
-                    }
-                    break;
+            if (j === 0) {
+                if (aux.value.length >= 20) {
+                    question.title = aux.value;
 
-                case 1:
-                    if (colorValidation(aux.value)) {
-                        question.color = aux.value;
-                    } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente`)
-                        return;
-                    }
-                    break;
+                } else {
+                    alert(`Por favor, verifique e preencha os campos corretamente`)
+                    return;
+                }
+            } else if (j === 1) {
+                if (colorValidation(aux.value)) {
+                    question.color = aux.value;
+                    console.log(j, question)
+                    console.log(j, answer)
+                    console.log(j, quizz)
+                } else {
+                    alert(`Por favor, verifique e preencha os campos corretamente`)
+                    return;
+                }
 
-                case 2:
-                    if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
-                        answer.text = aux.value;
-                        answer.isCorrectAnswer = true;
-                    } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente`)
-                        return;
-                    }
-                    break;
+            } else if (j === 2) {
+                if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                    answer.text = aux.value;
+                    answer.isCorrectAnswer = true;
+                } else {
+                    alert(`Por favor, verifique e preencha os campos corretamente`)
+                    return;
+                }
 
-                case 3:
-                    if (urlValidation(aux.value)) {
-                        answer.image = aux.value
-                        question.answers.push(answer);
-                    } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente`)
-                        return;
-                    }
-                    break;
+            } else if (j === 3) {
+                if (urlValidation(aux.value)) {
+                    answer.image = aux.value
+                    question.answers.push(answer);
+                    console.log(j, question)
+                    console.log(j, answer)
+                    console.log(j, quizz)
+                } else {
+                    alert(`Por favor, verifique e preencha os campos corretamente`)
+                    return;
+                }
 
-                case 4:
-                    if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
-                        answer.text = aux.value;
-                        answer.isCorrectAnswer = false;
-                    } break;
+            } else if (j === 4) {
+                if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                    answer.text = aux.value;
+                    answer.isCorrectAnswer = false;
+                }
 
-                case 5:
-                    if (urlValidation(aux.value)) {
-                        answer.image = aux.value
-                        question.answers.push(answer);
-                    } break;
+            } else if (j === 5) {
+                if (urlValidation(aux.value)) {
+                    answer.image = aux.value
+                    question.answers.push(answer);
+                    console.log(j, question)
+                    console.log(j, answer)
+                    console.log(j, quizz)
+                }
 
-                case 6:
-                    if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
-                        answer.text = aux.value;
-                        answer.isCorrectAnswer = false;
-                    } break;
-
-                case 7:
-                    if (urlValidation(aux.value)) {
-                        answer.image = aux.value
-                        question.answers.push(answer);
-                    } break;
-
-                case 8:
-                    if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
-                        answer.text = aux.value;
-                        answer.isCorrectAnswer = false;
-                    } break;
-
-                case 9:
-                    if (urlValidation(aux.value)) {
-                        answer.image = aux.value
-                        question.answers.push(answer);
-                    }
-                    break;
-
-                default:
-                    break;
+            } else if (j === 6) {
+                if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                    answer.text = aux.value;
+                    answer.isCorrectAnswer = false;
+                }
+            } else if (j === 7) {
+                if (urlValidation(aux.value)) {
+                    answer.image = aux.value
+                    question.answers.push(answer);
+                    console.log(j, question)
+                    console.log(j, answer)
+                    console.log(j, quizz)
+                }
+            } else if (j === 8) {
+                if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                    answer.text = aux.value;
+                    answer.isCorrectAnswer = false;
+                }
+            } else if (j === 9) {
+                if (urlValidation(aux.value)) {
+                    answer.image = aux.value
+                    question.answers.push(answer);
+                    console.log(j, question)
+                    console.log(j, answer)
+                    console.log(j, quizz)
+                }
             }
+            console.log(`fora dos if`, question)
+            console.log(`fora dos if`, answer)
+            console.log(`fora dos if`, quizz)
+
+            /* switch (j) {
+                 case 0:
+                     if (aux.value.length >= 20) {
+                         question.title = aux.value;
+                     } else {
+                         alert(`Por favor, verifique e preencha os campos corretamente`)
+                         return;
+                     }
+                     break;
+ 
+                 case 1:
+                     if (colorValidation(aux.value)) {
+                         question.color = aux.value;
+                     } else {
+                         alert(`Por favor, verifique e preencha os campos corretamente`)
+                         return;
+                     }
+                     break;
+ 
+                 case 2:
+                     if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                         answer.text = aux.value;
+                         answer.isCorrectAnswer = true;
+                     } else {
+                         alert(`Por favor, verifique e preencha os campos corretamente`)
+                         return;
+                     }
+                     break;
+ 
+                 case 3:
+                     if (urlValidation(aux.value)) {
+                         answer.image = aux.value
+                         question.answers.push(answer);
+                     } else {
+                         alert(`Por favor, verifique e preencha os campos corretamente`)
+                         return;
+                     }
+                     break;
+ 
+                 case 4:
+                     if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                         answer.text = aux.value;
+                         answer.isCorrectAnswer = false;
+                     } break;
+ 
+                 case 5:
+                     if (urlValidation(aux.value)) {
+                         answer.image = aux.value
+                         question.answers.push(answer);
+                     } break;
+ 
+                 case 6:
+                     if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                         answer.text = aux.value;
+                         answer.isCorrectAnswer = false;
+                     } break;
+ 
+                 case 7:
+                     if (urlValidation(aux.value)) {
+                         answer.image = aux.value
+                         question.answers.push(answer);
+                     } break;
+ 
+                 case 8:
+                     if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
+                         answer.text = aux.value;
+                         answer.isCorrectAnswer = false;
+                     } break;
+ 
+                 case 9:
+                     if (urlValidation(aux.value)) {
+                         answer.image = aux.value
+                         question.answers.push(answer);
+                     }
+                     break;
+ 
+                 default:
+                     break;
+             }*/
 
         }
         /* if (question.answers[1] === null || question.answers[1] === undefined || question.answers[1] === ``) {
@@ -209,7 +295,15 @@ function questionsCreation() {
          return;
        }*/
         quizz.questions.push(question);
+        console.log(`fora do loop j`, question)
+        console.log(`fora do loop j`, answer)
+        console.log(`fora do loop j`, quizz)
+
     }
+    console.log(`fora do loop i`, question)
+    console.log(`fora do loop i`, answer)
+    console.log(`fora do loop i`, quizz)
+
 }
 
 function colorValidation(color) {
