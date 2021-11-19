@@ -1,6 +1,5 @@
 let quizz = { title: ``, image: ``, questions: [], levels: [] };
-let title;
-let url;
+
 let nQuestions;
 let nLevels;
 
@@ -10,20 +9,18 @@ function infoValidation() {
     let testLevels;
     let testQuestions;
 
-    title = document.querySelector(`.quiz-title`).value;
-    url = document.querySelector(`.quiz-image-URL`).value;
+    quizz.title = document.querySelector(`.quiz-title`).value;
+    quizz.image = document.querySelector(`.quiz-image-URL`).value;
     nQuestions = document.querySelector(`.number-of-questions`).value;
     nLevels = document.querySelector(`.number-of-levels`).value;
 
-    testTitle = titleValidation(title);
-    testUrl = urlValidation(url);
+    testTitle = titleValidation(quizz.title);
+    testUrl = urlValidation(quizz.image);
     testQuestions = parseInt(nQuestions) >= 3;
     testLevels = parseInt(nLevels) >= 2;
 
     if (testTitle && testUrl && testQuestions && testLevels) {
         printQuestions();
-        //document.querySelector(`.quiz-beginning`).classList.add(`hide`);
-        //document.querySelector(`.questions-creation`).classList.remove(`hide`);
         changePage(".quiz-beginning", ".questions-creation");
 
         document.querySelector(`.quiz-title`).value = ``;
@@ -68,21 +65,17 @@ function printQuestions() {
             <h2>Pergunta ${i}</h2><br>
             <ion-icon name="create-outline" onclick="editQuestion(this)"></ion-icon>
         </div>`;
-
     }
     questionsCreation.innerHTML += `
     <button type="button" class="red-button" onclick="questionsCreation()">Prosseguir para criar níveis</button>
     `;
-
     editQuestion(document.querySelector(`.questions-creation-board ion-icon`))
 }
-
 
 function editQuestion(element) {
     let question = element.parentElement;
 
     element.classList.add(`hide`);
-
     question.innerHTML += `
     <div><input type="text" placeholder="Texto da pergunta (min 20 letras)" class="question-text">
                 </input><br>
@@ -117,211 +110,97 @@ function editQuestion(element) {
 }
 
 function questionsCreation() {
-    const questionsData = document.querySelectorAll(`.questions-creation-board input`);
-    let question = { title: ``, color: ``, answers: [] };
-    let answer = { text: ``, image: ``, isCorrectAnswer: `` }
-    let aux;
+    const questionData = document.querySelectorAll(`.questions-creation-board input`);
 
     for (let i = 0; i < nQuestions; i++) {
+        let question = { title: ``, color: ``, answers: [] };
         for (let j = 0; j < 10; j++) {
-            aux = ((questionsData[(10 * i) + j]));
-
-            console.log(`antes dos if, dentro do loop j`, j, question)
-            console.log(`antes dos if, dentro do loop j`, j, answer)
-            console.log(`antes dos if, dentro do loop j`, j, quizz)
-            if (j === 0) {
-                if (aux.value.length >= 20) {
-                    question.title = aux.value;
-                    console.log(j, question)
-                    console.log(j, answer)
-                    console.log(j, quizz)
-
-                } else {
-                    alert(`Por favor, verifique e preencha os campos corretamente`)
-                    return;
-                }
-            } else if (j === 1) {
-                if (colorValidation(aux.value)) {
-                    question.color = aux.value;
-                    console.log(j, question)
-                    console.log(j, answer)
-                    console.log(j, quizz)
-                } else {
-                    alert(`Por favor, verifique e preencha os campos corretamente`)
-                    return;
-                }
-
-            } else if (j === 2) {
-                if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
-                    answer.text = aux.value;
-                    answer.isCorrectAnswer = true;
-                } else {
-                    alert(`Por favor, verifique e preencha os campos corretamente`)
-                    return;
-                }
-
-            } else if (j === 3) {
-                if (urlValidation(aux.value)) {
-                    answer.image = aux.value
-                    question.answers.push(answer);
-                    console.log(j, question)
-                    console.log(j, answer)
-                    console.log(j, quizz)
-                } else {
-                    alert(`Por favor, verifique e preencha os campos corretamente`)
-                    return;
-                }
-
-            } else if (j === 4) {
-                if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
-                    answer.text = aux.value;
-                    answer.isCorrectAnswer = false;
-                }
-
-            } else if (j === 5) {
-                if (urlValidation(aux.value)) {
-                    answer.image = aux.value
-                    question.answers.push(answer);
-                    console.log(j, question)
-                    console.log(j, answer)
-                    console.log(j, quizz)
-                }
-
-            } else if (j === 6) {
-                if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
-                    answer.text = aux.value;
-                    answer.isCorrectAnswer = false;
-                }
-            } else if (j === 7) {
-                if (urlValidation(aux.value)) {
-                    answer.image = aux.value
-                    question.answers.push(answer);
-                    console.log(j, question)
-                    console.log(j, answer)
-                    console.log(j, quizz)
-                }
-            } else if (j === 8) {
-                if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
-                    answer.text = aux.value;
-                    answer.isCorrectAnswer = false;
-                }
-            } else if (j === 9) {
-                if (urlValidation(aux.value)) {
-                    answer.image = aux.value
-                    question.answers.push(answer);
-                    console.log(j, question)
-                    console.log(j, answer)
-                    console.log(j, quizz)
-                }
+            let answer = { text: ``, image: ``, isCorrectAnswer: `` }
+            let aux1 = questionData[(10 * i) + j];
+            let aux2 = questionData[(10 * i) + j + 1];
+            switch (j) {
+                case 0:
+                    if (aux1.value.length >= 20) {
+                        question.title = aux1.value;
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente title`)
+                        return;
+                    }
+                    break;
+                case 1:
+                    if (colorValidation(aux1.value)) {
+                        question.color = aux1.value;
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente color`)
+                        return;
+                    }
+                    break;
+                case 2:
+                    if (aux1.value !== "" && aux1.value !== null && aux1.value !== undefined) {
+                        answer.text = aux1.value;
+                        answer.isCorrectAnswer = true;
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente text`)
+                        return;
+                    }
+                    if (urlValidation(aux2.value)) {
+                        answer.image = aux2.value
+                        question.answers.push(answer);
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente img`)
+                        return;
+                    }
+                    break;
+                case 4:
+                    if (aux1.value !== "" && aux1.value !== null && aux1.value !== undefined) {
+                        answer.text = aux1.value;
+                        answer.isCorrectAnswer = false;
+                    }
+                    if (urlValidation(aux2.value)) {
+                        answer.image = aux2.value
+                        question.answers.push(answer);
+                    }
+                    break;
+                case 6:
+                    if (aux1.value !== "" && aux1.value !== null && aux1.value !== undefined) {
+                        answer.text = aux1.value;
+                        answer.isCorrectAnswer = false;
+                    }
+                    if (urlValidation(aux2.value)) {
+                        answer.image = aux2.value
+                        question.answers.push(answer);
+                    } break;
+                case 8:
+                    if (aux1.value !== "" && aux1.value !== null && aux1.value !== undefined) {
+                        answer.text = aux1.value;
+                        answer.isCorrectAnswer = false;
+                    }
+                    if (urlValidation(aux2.value)) {
+                        answer.image = aux2.value
+                        question.answers.push(answer);
+                    }
+                    break;
+                default:
+                    break;
             }
-            console.log(`fora dos if`, question)
-            console.log(`fora dos if`, answer)
-            console.log(`fora dos if`, quizz)
-
-            /* switch (j) {
-                 case 0:
-                     if (aux.value.length >= 20) {
-                         question.title = aux.value;
-                     } else {
-                         alert(`Por favor, verifique e preencha os campos corretamente`)
-                         return;
-                     }
-                     break;
-
-                 case 1:
-                     if (colorValidation(aux.value)) {
-                         question.color = aux.value;
-                     } else {
-                         alert(`Por favor, verifique e preencha os campos corretamente`)
-                         return;
-                     }
-                     break;
-
-                 case 2:
-                     if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
-                         answer.text = aux.value;
-                         answer.isCorrectAnswer = true;
-                     } else {
-                         alert(`Por favor, verifique e preencha os campos corretamente`)
-                         return;
-                     }
-                     break;
-
-                 case 3:
-                     if (urlValidation(aux.value)) {
-                         answer.image = aux.value
-                         question.answers.push(answer);
-                     } else {
-                         alert(`Por favor, verifique e preencha os campos corretamente`)
-                         return;
-                     }
-                     break;
-
-                 case 4:
-                     if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
-                         answer.text = aux.value;
-                         answer.isCorrectAnswer = false;
-                     } break;
-
-                 case 5:
-                     if (urlValidation(aux.value)) {
-                         answer.image = aux.value
-                         question.answers.push(answer);
-                     } break;
-
-                 case 6:
-                     if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
-                         answer.text = aux.value;
-                         answer.isCorrectAnswer = false;
-                     } break;
-
-                 case 7:
-                     if (urlValidation(aux.value)) {
-                         answer.image = aux.value
-                         question.answers.push(answer);
-                     } break;
-
-                 case 8:
-                     if (aux.value !== "" && aux.value !== null && aux.value !== undefined) {
-                         answer.text = aux.value;
-                         answer.isCorrectAnswer = false;
-                     } break;
-
-                 case 9:
-                     if (urlValidation(aux.value)) {
-                         answer.image = aux.value
-                         question.answers.push(answer);
-                     }
-                     break;
-
-                 default:
-                     break;
-             }*/
-
         }
-        /* if (question.answers[1] === null || question.answers[1] === undefined || question.answers[1] === ``) {
-           alert(`Por favor, verifique e preencha os campos corretamente sem incorreta`)
-         return;
-       }*/
+        if (question.answers[1] === null || question.answers[1] === undefined || question.answers[1] === ``) {
+            alert(`Por favor, verifique e preencha os campos corretamente`)
+            return;
+        }
         quizz.questions.push(question);
-        console.log(`fora do loop j`, question)
-        console.log(`fora do loop j`, answer)
-        console.log(`fora do loop j`, quizz)
-
     }
-    console.log(`fora do loop i`, question)
-    console.log(`fora do loop i`, answer)
-    console.log(`fora do loop i`, quizz)
-
+    changePage(".questions-creation", ".level-creation");
+    printLevels();
 }
 
 function colorValidation(color) {
     const regExp = /[#0-9A-F]{7}/gi;
 
     return (regExp.test(color))
-
     regExp.lastIndex = 0;
 }
+
 function getQuizzes() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
     promise.then(quizzesDisplay);
