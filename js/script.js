@@ -271,10 +271,20 @@ function displayQuizz(selectedQuizz) {
     
 
     for (let i = 0; i<selectedQuizz.data.questions.length; i++) {
+
+        let randomIndex = [];
+
+        for (let j=0;j<selectedQuizz.data.questions[i].answers.length;j++){
+            randomIndex.push(j);
+        }
+
+        randomIndex.sort(() => Math.random() - 0.5);
+        console.log(randomIndex);
+
         let divAnswers = "";
         for (let j=0;j<selectedQuizz.data.questions[i].answers.length;j++){
-            divAnswers += `<div class="quizz-answer">
-                <img src="${selectedQuizz.data.questions[i].answers[j].image}" alt=""> 
+            divAnswers += `<div class="quizz-answer" onclick="selectAnswer(this, selectedQuizz)">
+                <img src="${selectedQuizz.data.questions[i].answers[randomIndex[j]].image}" alt=""> 
                 <p>${selectedQuizz.data.questions[i].answers[j].text}</p>
             </div>`
         }
@@ -289,6 +299,23 @@ function displayQuizz(selectedQuizz) {
             </div>`
         
         document.querySelector(".quizz-question-header").style.backgroundColor = selectedQuizz.data.questions[i].color;
+    }
+}
+
+function selectAnswer(item, selectedQuizz) {
+    const itemParent = item.parentElement;
+    if (!itemParent.classList.contains("answered")){
+        item.classList.add("selected");
+        itemParent.classList.add("answered");
+    }
+    const allAnswerOptions = itemParent.querySelectorAll(".quizz-answer");
+
+    for (let i = 0;i<allAnswerOptions.length;i++){
+        if (!allAnswerOptions[i].classList.contains("selected")){
+            allAnswerOptions[i].classList.add("unselected");
+        }
+
+        if (selectedQuizz){}
     }
 }
 
