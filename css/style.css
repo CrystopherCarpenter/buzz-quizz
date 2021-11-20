@@ -94,6 +94,13 @@ header{
 .quizz {
     width: 340px;
     height: 180px;
+    position: relative;
+}
+
+.quizz img {
+    width: 100%;
+
+    object-fit: cover;
 }
 
 .all-quizzes {
@@ -101,12 +108,21 @@ header{
 
     display: flex;
     justify-content: left;
+
+    flex-wrap: wrap;
+
+    gap: 20px 10px;
+
+   
 }
 
-.all-quizzes p{
-    margin-left: 0px;
-    margin-right: auto;
+.quizz p{
+    position: absolute;
+    bottom: 5px;
+
+    color: #ffffff;
 }
+
 .quiz-beginning, .questions-creation, .level-creation, .quiz-success{  
     width: 100%;
     height: 100%;
@@ -268,6 +284,7 @@ header{
 .hide{
     display: none;
 }
+
 
 .quizz-page {
     width: 100%;
