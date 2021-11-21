@@ -109,7 +109,6 @@ function editQuestion(element) {
     `;
 }
 
-
 function questionsCreation() {
     const questionData = document.querySelectorAll(`.questions-creation-board input`);
 
@@ -212,6 +211,98 @@ function colorValidation(color) {
     }
 }
 
+function printLevels() {
+    let levelsCreation = document.querySelector(`.level-creation`);
+
+    for (let i = 1; i <= nLevels; i++) {
+        levelsCreation.innerHTML += `
+        <div class="level-creation-board">
+            <h2>Nível ${i}</h2><br>
+            <ion-icon name="create-outline" onclick="editLevel(this)"></ion-icon>
+        </div>`;
+    }
+    levelsCreation.innerHTML += `
+    <button type="button" class="red-button" onclick="levelsCreation()">Finalizar Quizz</button>
+    `;
+    editLevel(document.querySelector(`.level-creation-board ion-icon`))
+}
+
+function editLevel(element) {
+    let level = element.parentElement;
+
+    element.classList.add(`hide`);
+    level.innerHTML += `
+    <div><input type="text" placeholder="Título do nível (min. 10 letras)" class="level-title">
+                </input><br>
+                <input type="text" placeholder="% de acerto mínima (0 a 100, pelo menos um nível deve ser 0%)" class="%-right-answer">
+                </input><br>
+                <input type="text" placeholder="URL da imagem do nível ('http:...')" class="level-image-URL">
+                </input><br>
+                <input type="text" placeholder="Descrição do nível (min. 30 letras)" class="level-description">
+                </input>
+            </div>
+    `;
+}
+
+function levelsCreation() {
+    const levelsData = document.querySelectorAll(`.level-creation-board input`);
+    let minValue0 = false;
+
+    for (let i = 0; i < nLevels; i++) {
+        let level = { title: ``, image: ``, text: ``, minValue: `` };
+        for (let j = 0; j < 4; j++) {
+            let aux = levelsData[(4 * i) + j];
+            switch (j) {
+                case 0:
+                    if (aux.value.length >= 10) {
+                        level.title = aux.value;
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente title`)
+                        return;
+                    }
+                    break;
+                case 1:
+                    if (parseInt(aux.value) >= 0 && parseInt(aux.value) <= 100) {
+                        level.minValue = aux.value;
+                        if (parseInt(aux.value) === 0) {
+                            minValue0 = true;
+                        }
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente color`)
+                        return;
+                    }
+                    break;
+                case 2:
+                    if (urlValidation(aux.value)) {
+                        level.image = aux.value;
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente color`)
+                        return;
+                    }
+                    break;
+                case 3:
+                    if (aux.value.length >= 30) {
+                        level.text = aux.value;
+                    } else {
+                        alert(`Por favor, verifique e preencha os campos corretamente color`)
+                        return;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (!minValue0) {
+            alert(`Por favor, verifique e preencha os campos corretamente`)
+            return;
+        }
+        quizz.levels.push(level);
+    }
+    changePage(".level-creation", ".quiz-success");
+    //printLevels();
+}
+
+
 function getQuizzes() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
     promise.then(quizzesDisplay);
@@ -253,7 +344,7 @@ function changePage(hidePage, showPage) {
 
 function selectQuizz(id) {
     let x = id.classList.item(1);
-    x = parseInt(x[2]+x[3]);
+    x = parseInt(x[2] + x[3]);
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${x}`);
     promise.then(displayQuizz)
 }
@@ -268,13 +359,13 @@ function displayQuizz(selectedQuizz) {
 
 
     console.log(selectedQuizz.data.questions[0].answers[0].image)
-    
 
-    for (let i = 0; i<selectedQuizz.data.questions.length; i++) {
+
+    for (let i = 0; i < selectedQuizz.data.questions.length; i++) {
 
         let randomIndex = [];
 
-        for (let j=0;j<selectedQuizz.data.questions[i].answers.length;j++){
+        for (let j = 0; j < selectedQuizz.data.questions[i].answers.length; j++) {
             randomIndex.push(j);
         }
 
@@ -282,7 +373,7 @@ function displayQuizz(selectedQuizz) {
         console.log(randomIndex);
 
         let divAnswers = "";
-        for (let j=0;j<selectedQuizz.data.questions[i].answers.length;j++){
+        for (let j = 0; j < selectedQuizz.data.questions[i].answers.length; j++) {
             divAnswers += `<div class="quizz-answer" onclick="selectAnswer(this, selectedQuizz)">
                 <img src="${selectedQuizz.data.questions[i].answers[randomIndex[j]].image}" alt=""> 
                 <p>${selectedQuizz.data.questions[i].answers[j].text}</p>
@@ -297,25 +388,25 @@ function displayQuizz(selectedQuizz) {
                     ${divAnswers} 
                 </div>
             </div>`
-        
+
         document.querySelector(".quizz-question-header").style.backgroundColor = selectedQuizz.data.questions[i].color;
     }
 }
 
 function selectAnswer(item, selectedQuizz) {
     const itemParent = item.parentElement;
-    if (!itemParent.classList.contains("answered")){
+    if (!itemParent.classList.contains("answered")) {
         item.classList.add("selected");
         itemParent.classList.add("answered");
     }
     const allAnswerOptions = itemParent.querySelectorAll(".quizz-answer");
 
-    for (let i = 0;i<allAnswerOptions.length;i++){
-        if (!allAnswerOptions[i].classList.contains("selected")){
+    for (let i = 0; i < allAnswerOptions.length; i++) {
+        if (!allAnswerOptions[i].classList.contains("selected")) {
             allAnswerOptions[i].classList.add("unselected");
         }
 
-        if (selectedQuizz){}
+        if (selectedQuizz) { }
     }
 }
 
