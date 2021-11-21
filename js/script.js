@@ -367,11 +367,7 @@ function changePage(hidePage, showPage) {
 
 function selectQuizz(id) {
     let x = id.classList.item(1);
-<<<<<<< HEAD
     x=x.replace("id","");
-=======
-    x = parseInt(x[2] + x[3]);
->>>>>>> 456fd997036b7774d094521efb355a341af605f3
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${x}`);
     promise.then(displayQuizz)
 }
@@ -401,13 +397,9 @@ function displayQuizz(selectedQuizz) {
         console.log(randomIndex);
 
         let divAnswers = "";
-<<<<<<< HEAD
+
         for (let j=0;j<selectedQuizz.data.questions[i].answers.length;j++){
             divAnswers += `<div class="quizz-answer ${selectedQuizz.data.questions[i].answers[randomIndex[j]].isCorrectAnswer}" onclick="selectAnswer(this)">
-=======
-        for (let j = 0; j < selectedQuizz.data.questions[i].answers.length; j++) {
-            divAnswers += `<div class="quizz-answer" onclick="selectAnswer(this, selectedQuizz)">
->>>>>>> 456fd997036b7774d094521efb355a341af605f3
                 <img src="${selectedQuizz.data.questions[i].answers[randomIndex[j]].image}" alt=""> 
                 <p>${selectedQuizz.data.questions[i].answers[randomIndex[j]].text}</p>
             </div>`
@@ -428,12 +420,9 @@ function displayQuizz(selectedQuizz) {
 
 function selectAnswer(item) {
     const itemParent = item.parentElement;
-<<<<<<< HEAD
 
     if (!itemParent.classList.contains("answered")){
-=======
-    if (!itemParent.classList.contains("answered")) {
->>>>>>> 456fd997036b7774d094521efb355a341af605f3
+
         item.classList.add("selected");
         itemParent.classList.add("answered");
     }
@@ -444,15 +433,13 @@ function selectAnswer(item) {
             allAnswerOptions[i].classList.add("unselected");
         }
 
-<<<<<<< HEAD
+
         if (allAnswerOptions[i].classList.item(1)=="true") {
             allAnswerOptions[i].classList.add("correct")
         }else{
             allAnswerOptions[i].classList.add("wrong")
         }
-=======
-        if (selectedQuizz) { }
->>>>>>> 456fd997036b7774d094521efb355a341af605f3
+
     }
 
     nextQuestion();
