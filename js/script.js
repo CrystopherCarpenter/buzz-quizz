@@ -192,7 +192,13 @@ function questionsCreation() {
         quizz.questions.push(question);
     }
     changePage(".questions-creation", ".level-creation");
+    saveQuizz();
     printLevels();
+}
+
+function saveQuizz() {
+    const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizz)
+    promise.then(alert(promise));
 }
 
 function colorValidation(color) {
@@ -221,18 +227,18 @@ function quizzesDisplay(date) {
     let quizz = date;
     console.log(quizz);
 
-    if (quizz != null) {
-        //exibe os quizzes criados pelo usuário
-        for (let i = 0; i < quizz.length; i++) {
-            document.querySelector(".created-quizzes").innerHTML += `
-            <div class="quizz" onclick="selectQuizz(this)">
-            <img src="${quizz[i].image}" alt="">
-            <p>${quizz[i].title}</p>
-            </div>`
-        }
-    } else {
+    // if (quizz != null) {
+    //     //exibe os quizzes criados pelo usuário
+    //     for (let i = 0; i < quizz.length; i++) {
+    //         document.querySelector(".created-quizzes").innerHTML += `
+    //         <div class="quizz" onclick="selectQuizz(this)">
+    //         <img src="${quizz[i].image}" alt="">
+    //         <p>${quizz[i].title}</p>
+    //         </div>`
+    //     }
+    // } else {
 
-    }
+    // }
 
     //exibe todos os quizzes
     for (let i = 0; i < quizz.data.length; i++) {
@@ -253,12 +259,13 @@ function changePage(hidePage, showPage) {
 
 function selectQuizz(id) {
     let x = id.classList.item(1);
-    x = parseInt(x[2]+x[3]);
+    x=x.replace("id","");
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${x}`);
     promise.then(displayQuizz)
 }
 
 function displayQuizz(selectedQuizz) {
+    console.log("oi")
     console.log(selectedQuizz);
     changePage(".main-page", ".quizz-page");
 
@@ -283,9 +290,9 @@ function displayQuizz(selectedQuizz) {
 
         let divAnswers = "";
         for (let j=0;j<selectedQuizz.data.questions[i].answers.length;j++){
-            divAnswers += `<div class="quizz-answer" onclick="selectAnswer(this, selectedQuizz)">
+            divAnswers += `<div class="quizz-answer ${selectedQuizz.data.questions[i].answers[randomIndex[j]].isCorrectAnswer}" onclick="selectAnswer(this)">
                 <img src="${selectedQuizz.data.questions[i].answers[randomIndex[j]].image}" alt=""> 
-                <p>${selectedQuizz.data.questions[i].answers[j].text}</p>
+                <p>${selectedQuizz.data.questions[i].answers[randomIndex[j]].text}</p>
             </div>`
         }
         document.querySelector(".questions").innerHTML += `
@@ -302,8 +309,9 @@ function displayQuizz(selectedQuizz) {
     }
 }
 
-function selectAnswer(item, selectedQuizz) {
+function selectAnswer(item) {
     const itemParent = item.parentElement;
+
     if (!itemParent.classList.contains("answered")){
         item.classList.add("selected");
         itemParent.classList.add("answered");
@@ -315,8 +323,27 @@ function selectAnswer(item, selectedQuizz) {
             allAnswerOptions[i].classList.add("unselected");
         }
 
-        if (selectedQuizz){}
+        if (allAnswerOptions[i].classList.item(1)=="true") {
+            allAnswerOptions[i].classList.add("correct")
+        }else{
+            allAnswerOptions[i].classList.add("wrong")
+        }
     }
+
+    nextQuestion();
+}
+
+function nextQuestion() {
+    const allQuestions = document.querySelectorAll(".quizz-question-answers");
+    console.log(allQuestions);
+
+    let i = 0;
+    while (allQuestions[i].classList.contains("answered")) {
+        i++
+    }
+
+    setTimeout(() => { allQuestions[i].parentElement.scrollIntoView();alert("oi"); }, 2000);
+    
 }
 
 getQuizzes();
