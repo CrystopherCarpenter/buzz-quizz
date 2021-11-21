@@ -2,7 +2,6 @@ body{
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif; 
     padding-top: 69px;
-    padding-bottom: 50px;
     background-color: #fafafa;
 }
 
@@ -131,6 +130,7 @@ header{
     justify-content: center;
     align-items: center;
     padding-top: 71px;
+    padding-bottom: 50px;
 }
 
 .quiz-beginning h1, .questions-creation h1, .level-creation h1, .quiz-success h1{ 
@@ -211,18 +211,34 @@ header{
 }
 
 .quiz-success div img{
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%);
-    border-radius: 5px;
-
-    width: 500px;
     height: 266px;
+    width: 500px;
+
     object-fit: cover;
 
-    margin-top: 15px;
+    
+    border-radius: 5px;
 }
 
 .quiz-success div{
-     position: relative;
+    margin-top: 15px;
+
+    position: relative;
+}
+
+.quiz-success div:after{
+    height: 100%;
+    width: 100%;
+    content:"";
+
+    border-radius: 5px;
+
+    position:absolute;
+    top: 0;
+    left: 0;
+
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%);
+
 }
 
 .quiz-success div p{
@@ -237,6 +253,8 @@ header{
     position: absolute;
     left: 23px;
     bottom: 16px;
+
+    z-index: 5;
 }
 
 .red-button, .home-button{        /*Todos os botões vermelhos são iguais, só precisaremos mudar a margem de cada um depois*/

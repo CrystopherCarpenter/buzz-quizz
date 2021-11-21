@@ -298,10 +298,27 @@ function levelsCreation() {
         }
         quizz.levels.push(level);
     }
-    changePage(".level-creation", ".quiz-success");
-    //printLevels();
+
+    const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizz);
+    promise.then(postQuizz());
 }
 
+function postQuizz() {
+    const quizzSuccess = document.querySelector(`.quiz-success`);
+
+    changePage(".level-creation", ".quiz-success");
+
+    quizzSuccess.innerHTML += `
+     <div>
+            <img src="${quizz.image}" />
+            <p>${quizz.title}</p>
+        </div>
+        <button type="button" class="red-button" onclick="">Acessar Quizz</button>
+        <button type="button" class="home-button" onclick="changePage('.quiz-success', '.main-page')">Voltar pra home</button>
+    `;
+
+    quizz = { title: ``, image: ``, questions: [], levels: [] };
+}
 
 function getQuizzes() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
