@@ -402,7 +402,7 @@ function displayQuizz(selectedQuizz) {
         let divAnswers = "";
 
         for (let j = 0; j < selectedQuizz.data.questions[i].answers.length; j++) {
-            divAnswers += `<div class="quizz-answer ${selectedQuizz.data.questions[i].answers[randomIndex[j]].isCorrectAnswer}" onclick="selectAnswer(this)">
+            divAnswers += `<div class="quizz-answer ${selectedQuizz.data.questions[i].answers[randomIndex[j]].isCorrectAnswer}" onclick="selectAnswer(this); verifyQuizzAnswers();">
                 <img src="${selectedQuizz.data.questions[i].answers[randomIndex[j]].image}" alt=""> 
                 <p>${selectedQuizz.data.questions[i].answers[randomIndex[j]].text}</p>
             </div>`
@@ -456,7 +456,7 @@ function nextQuestion() {
     while (allQuestions[i].classList.contains("answered")) {
         i++
     }
-
+    console.log("passei do while")
     setTimeout(() => { allQuestions[i].parentElement.scrollIntoView(); alert("oi"); }, 2000);
 
 }
@@ -464,4 +464,19 @@ function home() {
     window.location.reload()
 }
 
+function verifyQuizzAnswers() {
+    const allQuestions = document.querySelectorAll(".quizz-question-answers")
+    const allQuestionsAnswered = document.querySelectorAll(".quizz-question-answers.answered");
+
+    if (allQuestionsAnswered.length === allQuestions.length) {
+        console.log(`rodei no if`)
+    }
+
+    console.log(`rodei`);
+}
+
 getQuizzes();
+
+
+
+
