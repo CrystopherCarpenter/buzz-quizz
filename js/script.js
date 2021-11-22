@@ -1,9 +1,7 @@
 let createdQuizz = { title: ``, image: ``, questions: [], levels: [] };
-
+const idString = localStorage.getItem(`userIds`);
 let nQuestions;
 let nLevels;
-
-const idString = localStorage.getItem(`userIds`);
 
 function infoValidation() {
     let testTitle;
@@ -63,9 +61,9 @@ function printQuestions() {
 
     for (let i = 1; i <= nQuestions; i++) {
         questionsCreation.innerHTML += `
-        <div class="questions-creation-board">
+        <div class="questions-creation-board" data-identifier="question">
             <h2>Pergunta ${i}</h2><br>
-            <ion-icon name="create-outline" onclick="editQuestion(this)"></ion-icon>
+            <ion-icon name="create-outline" onclick="editQuestion(this)" data-identifier="expand"></ion-icon>
         </div>`;
     }
     questionsCreation.innerHTML += `
@@ -81,31 +79,31 @@ function editQuestion(element) {
     question.innerHTML += `
     <div><input type="text" placeholder="Texto da pergunta (min 20 letras)" class="question-text">
                 </input><br>
-                <input type="text" placeholder="Cor de fundo da pergunta (hexadecimal '#000000')" class="question-background-color">
+                <input type="text" placeholder="Cor de fundo da pergunta" class="question-background-color">
                 </input><br>
             </div>
             <h2>Resposta correta</h2><br>
-            <div><input type="text" placeholder="Resposta correta (não pode estar em branco)" class="correct-answer">
+            <div><input type="text" placeholder="Resposta correta" class="correct-answer">
                 </input><br>
-                <input type="text" placeholder="URL da imagem ('http:...')" class="image-URL">
+                <input type="text" placeholder="URL da imagem" class="image-URL">
                 </input><br>
             </div>
             <h2>Respostas incorreta</h2><br>
-            <div><input type="text" placeholder="Resposta incorreta 1 (pelo menos 1 incorreta)" class="incorrect-answer">
+            <div><input type="text" placeholder="Resposta incorreta 1" class="incorrect-answer">
                 </input><br>
-                <input type="text" placeholder="URL da imagem 1 ('http:...')" class="image-URL-incorrect">
+                <input type="text" placeholder="URL da imagem 1" class="image-URL-incorrect">
                 </input><br>
             </div>
 
             <div><input type="text" placeholder="Resposta incorreta 2" class="incorrect-answer">
                 </input><br>
-                <input type="text" placeholder="URL da imagem 2 ('http:...')" class="image-URL-incorrect">
+                <input type="text" placeholder="URL da imagem 2" class="image-URL-incorrect">
                 </input><br>
             </div>
 
             <div><input type="text" placeholder="Resposta incorreta 3" class="incorrect-answer">
                 </input><br>
-                <input type="text" placeholder="URL da imagem 3 ('http:...')" class="image-URL-incorrect">
+                <input type="text" placeholder="URL da imagem 3" class="image-URL-incorrect">
                 </input>
             </div>
     `;
@@ -218,9 +216,9 @@ function printLevels() {
 
     for (let i = 1; i <= nLevels; i++) {
         levelsCreation.innerHTML += `
-        <div class="level-creation-board">
+        <div class="level-creation-board" data-identifier="level">
             <h2>Nível ${i}</h2><br>
-            <ion-icon name="create-outline" onclick="editLevel(this)"></ion-icon>
+            <ion-icon name="create-outline" onclick="editLevel(this)" data-identifier="expand"></ion-icon>
         </div>`;
     }
     levelsCreation.innerHTML += `
@@ -234,13 +232,13 @@ function editLevel(element) {
 
     element.classList.add(`hide`);
     level.innerHTML += `
-    <div><input type="text" placeholder="Título do nível (min. 10 letras)" class="level-title">
+    <div><input type="text" placeholder="Título do nível" class="level-title">
                 </input><br>
-                <input type="text" placeholder="% de acerto mínima (0 a 100, pelo menos um nível deve ser 0%)" class="%-right-answer">
+                <input type="text" placeholder="% de acerto mínima" class="%-right-answer">
                 </input><br>
-                <input type="text" placeholder="URL da imagem do nível ('http:...')" class="level-image-URL">
+                <input type="text" placeholder="URL da imagem do nível" class="level-image-URL">
                 </input><br>
-                <input type="text" placeholder="Descrição do nível (min. 30 letras)" class="level-description">
+                <input type="text" placeholder="Descrição do nível" class="level-description">
                 </input>
             </div>
     `;
@@ -300,7 +298,6 @@ function levelsCreation() {
         }
         createdQuizz.levels.push(level);
     }
-
     const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", createdQuizz);
     promise.then(postQuizz);
 }
@@ -309,19 +306,13 @@ function postQuizz(response) {
     const quizzSuccess = document.querySelector(`.quiz-success`);
     let userQuizzId = JSON.parse(idString);
 
-    console.log(response);
-
     if (idString === null) {
         userQuizzId = [response.data.id];
     } else {
         userQuizzId.push(response.data.id)
     }
 
-    console.log(userQuizzId);
-
     const idStorage = JSON.stringify(userQuizzId);
-
-    console.log(idStorage);
 
     localStorage.setItem("userIds", idStorage);
 
@@ -363,7 +354,7 @@ function quizzesDisplay(date) {
     //exibe todos os quizzes
     for (let i = 0; i < quizz.data.length; i++) {
         document.querySelector(".all-quizzes").innerHTML += `
-        <div class="quizz id${quizz.data[i].id}" onclick="selectQuizz(this)">
+        <div class="quizz id${quizz.data[i].id}" onclick="selectQuizz(this)" data-identifier="quizz-card">
             <img src="${quizz.data[i].image}" alt="">
             <p>${quizz.data[i].title}</p>
         </div>`
