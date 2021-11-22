@@ -293,9 +293,9 @@ header{
     margin-top: 10px;
 }
 
-.questions-creation-board ion-icon:hover, .level-creation-board ion-icon:hover, .red-button:hover, .home-button:hover, header h1:hover{
+.questions-creation-board ion-icon:hover, .level-creation-board ion-icon:hover, .red-button:hover, .home-button:hover, header h1:hover, .quiz-success div:hover{
     cursor: pointer;
-    filter: brightness(0.9);
+    filter: brightness(0.95);
 }
 
 .hide{

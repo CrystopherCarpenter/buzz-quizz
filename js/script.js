@@ -318,7 +318,7 @@ function postQuizz(response) {
 
     changePage(".level-creation", ".quiz-success");
     quizzSuccess.innerHTML += `
-     <div>
+     <div class="class id${response.data.id}" onclick="selectQuizz(this); changePage('.quiz-success', '.quizz-page');">
             <img src="${createdQuizz.image}" alt=""/>
             <p>${createdQuizz.title}</p>
         </div>
