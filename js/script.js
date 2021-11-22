@@ -1,7 +1,9 @@
-let quizz = { title: ``, image: ``, questions: [], levels: [] };
+let createdQuizz = { title: ``, image: ``, questions: [], levels: [] };
 
 let nQuestions;
 let nLevels;
+
+const idString = localStorage.getItem(`userIds`);
 
 function infoValidation() {
     let testTitle;
@@ -9,13 +11,13 @@ function infoValidation() {
     let testLevels;
     let testQuestions;
 
-    quizz.title = document.querySelector(`.quiz-title`).value;
-    quizz.image = document.querySelector(`.quiz-image-URL`).value;
+    createdQuizz.title = document.querySelector(`.quiz-title`).value;
+    createdQuizz.image = document.querySelector(`.quiz-image-URL`).value;
     nQuestions = document.querySelector(`.number-of-questions`).value;
     nLevels = document.querySelector(`.number-of-levels`).value;
 
-    testTitle = titleValidation(quizz.title);
-    testUrl = urlValidation(quizz.image);
+    testTitle = titleValidation(createdQuizz.title);
+    testUrl = urlValidation(createdQuizz.image);
     testQuestions = parseInt(nQuestions) >= 3;
     testLevels = parseInt(nLevels) >= 2;
 
@@ -28,7 +30,7 @@ function infoValidation() {
         document.querySelector(`.number-of-questions`).value = ``;
         document.querySelector(`.number-of-levels`).value = ``;
     } else (
-        alert(`Por favor, verifique e preencha os campos corretamente`)
+        alert(`${testTitle} ${testUrl} ${testQuestions} ${testLevels}`)
     )
 }
 
@@ -188,16 +190,10 @@ function questionsCreation() {
             alert(`Por favor, verifique e preencha os campos corretamente`)
             return;
         }
-        quizz.questions.push(question);
+        createdQuizz.questions.push(question);
     }
     changePage(".questions-creation", ".level-creation");
-    saveQuizz();
     printLevels();
-}
-
-function saveQuizz() {
-    const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizz)
-    promise.then(alert(promise));
 }
 
 function colorValidation(color) {
@@ -302,28 +298,44 @@ function levelsCreation() {
             alert(`Por favor, verifique e preencha os campos corretamente`)
             return;
         }
-        quizz.levels.push(level);
+        createdQuizz.levels.push(level);
     }
 
-    const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizz);
-    promise.then(postQuizz());
+    const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", createdQuizz);
+    promise.then(postQuizz);
 }
 
-function postQuizz() {
+function postQuizz(response) {
     const quizzSuccess = document.querySelector(`.quiz-success`);
+    let userQuizzId = JSON.parse(idString);
+
+    console.log(response);
+
+    if (idString === null) {
+        userQuizzId = [response.data.id];
+    } else {
+        userQuizzId.push(response.data.id)
+    }
+
+    console.log(userQuizzId);
+
+    const idStorage = JSON.stringify(userQuizzId);
+
+    console.log(idStorage);
+
+    localStorage.setItem("userIds", idStorage);
 
     changePage(".level-creation", ".quiz-success");
-
     quizzSuccess.innerHTML += `
      <div>
-            <img src="${quizz.image}" />
-            <p>${quizz.title}</p>
+            <img src="${createdQuizz.image}" alt=""/>
+            <p>${createdQuizz.title}</p>
         </div>
-        <button type="button" class="red-button" onclick="">Acessar Quizz</button>
-        <button type="button" class="home-button" onclick="changePage('.quiz-success', '.main-page')">Voltar pra home</button>
+        <button type="button" class="red-button id${response.data.id}" onclick="selectQuizz(this); changePage('.quiz-success', '.quizz-page');">Acessar Quizz</button>
+        <button type="button" class="home-button" onclick="home()">Voltar pra home</button>
     `;
 
-    quizz = { title: ``, image: ``, questions: [], levels: [] };
+    createdQuizz = { title: ``, image: ``, questions: [], levels: [] };
 }
 
 function getQuizzes() {
@@ -367,7 +379,7 @@ function changePage(hidePage, showPage) {
 
 function selectQuizz(id) {
     let x = id.classList.item(1);
-    x=x.replace("id","");
+    x = x.replace("id", "");
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${x}`);
     promise.then(displayQuizz)
 }
@@ -398,7 +410,7 @@ function displayQuizz(selectedQuizz) {
 
         let divAnswers = "";
 
-        for (let j=0;j<selectedQuizz.data.questions[i].answers.length;j++){
+        for (let j = 0; j < selectedQuizz.data.questions[i].answers.length; j++) {
             divAnswers += `<div class="quizz-answer ${selectedQuizz.data.questions[i].answers[randomIndex[j]].isCorrectAnswer}" onclick="selectAnswer(this)">
                 <img src="${selectedQuizz.data.questions[i].answers[randomIndex[j]].image}" alt=""> 
                 <p>${selectedQuizz.data.questions[i].answers[randomIndex[j]].text}</p>
@@ -421,7 +433,7 @@ function displayQuizz(selectedQuizz) {
 function selectAnswer(item) {
     const itemParent = item.parentElement;
 
-    if (!itemParent.classList.contains("answered")){
+    if (!itemParent.classList.contains("answered")) {
 
         item.classList.add("selected");
         itemParent.classList.add("answered");
@@ -434,9 +446,9 @@ function selectAnswer(item) {
         }
 
 
-        if (allAnswerOptions[i].classList.item(1)=="true") {
+        if (allAnswerOptions[i].classList.item(1) == "true") {
             allAnswerOptions[i].classList.add("correct")
-        }else{
+        } else {
             allAnswerOptions[i].classList.add("wrong")
         }
 
@@ -454,8 +466,11 @@ function nextQuestion() {
         i++
     }
 
-    setTimeout(() => { allQuestions[i].parentElement.scrollIntoView();alert("oi"); }, 2000);
-    
+    setTimeout(() => { allQuestions[i].parentElement.scrollIntoView(); alert("oi"); }, 2000);
+
+}
+function home() {
+    window.location.reload()
 }
 
 getQuizzes();

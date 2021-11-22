@@ -140,7 +140,7 @@ header{
     margin-bottom: 30px;
 }
 
-.beginning-board, .questions-creation-board, .level-creation-board{ /*dá pra usar para quase todos os quadros, tanto da criação quanto da exibição de quiz*/
+.beginning-board, .questions-creation-board, .level-creation-board{
     background-color: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
     
@@ -172,7 +172,7 @@ header{
     background-color: #FFFFFF;
 }
 
-.beginning-board input, .questions-creation-board input, .level-creation-board input{ /*dá pra usar para quase todos os input*/
+.beginning-board input, .questions-creation-board input, .level-creation-board input{
     all: unset;
     box-sizing: border-box;
     
@@ -257,7 +257,7 @@ header{
     z-index: 5;
 }
 
-.red-button, .home-button{        /*Todos os botões vermelhos são iguais, só precisaremos mudar a margem de cada um depois*/
+.red-button, .home-button{ 
     all:unset; 
     box-sizing: border-box;
 
@@ -277,7 +277,7 @@ header{
     color: #FFF5F4;
 }
 
-.home-button{       /*Todos os botões home também são iguais*/
+.home-button{ 
     border-color: transparent;
 
     background: transparent;
@@ -293,7 +293,7 @@ header{
     margin-top: 10px;
 }
 
-.questions-creation-board ion-icon:hover, .level-creation-board ion-icon:hover, .red-button:hover, .home-button:hover{
+.questions-creation-board ion-icon:hover, .level-creation-board ion-icon:hover, .red-button:hover, .home-button:hover, header h1:hover{
     cursor: pointer;
     filter: brightness(0.9);
 }
