@@ -106,6 +106,24 @@ header{
     object-fit: cover;
 }
 
+.my-quizzes {
+    width: 100%;
+    text-align: left;
+}
+
+.my-quizzes-header {
+    display: flex;
+}
+
+.my-quizzes-header p {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.my-quizzes-header ion-icon {
+    color: #EC362D;
+    font-size: 30px;
+}
 .all-quizzes {
     width: 100%;
 

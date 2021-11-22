@@ -257,7 +257,7 @@ function levelsCreation() {
                     if (aux.value.length >= 10) {
                         level.title = aux.value;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente title`)
+                        alert(`Por favor, verifique e preencha os campos corretamente pergunta`)
                         return;
                     }
                     break;
@@ -268,7 +268,7 @@ function levelsCreation() {
                             minValue0 = true;
                         }
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente color`)
+                        alert(`Por favor, verifique e preencha os campos corretamente acertos`)
                         return;
                     }
                     break;
@@ -276,7 +276,7 @@ function levelsCreation() {
                     if (urlValidation(aux.value)) {
                         level.image = aux.value;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente color`)
+                        alert(`Por favor, verifique e preencha os campos corretamente url`)
                         return;
                     }
                     break;
@@ -284,7 +284,7 @@ function levelsCreation() {
                     if (aux.value.length >= 30) {
                         level.text = aux.value;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente color`)
+                        alert(`Por favor, verifique e preencha os campos corretamente descricao`)
                         return;
                     }
                     break;
@@ -292,7 +292,7 @@ function levelsCreation() {
                     break;
             }
         }
-        if (!minValue0) {
+        if (minValue0) {
             alert(`Por favor, verifique e preencha os campos corretamente`)
             return;
         }
@@ -337,27 +337,29 @@ function getQuizzes() {
 function quizzesDisplay(date) {
     let quizz = date;
     console.log(quizz);
+    console.log(idString);
+    idArray = JSON.parse(idString)
 
-    // if (quizz != null) {
-    //     //exibe os quizzes criados pelo usuário
-    //     for (let i = 0; i < quizz.length; i++) {
-    //         document.querySelector(".created-quizzes").innerHTML += `
-    //         <div class="quizz" onclick="selectQuizz(this)">
-    //         <img src="${quizz[i].image}" alt="">
-    //         <p>${quizz[i].title}</p>
-    //         </div>`
-    //     }
-    // } else {
-
-    // }
-
-    //exibe todos os quizzes
     for (let i = 0; i < quizz.data.length; i++) {
-        document.querySelector(".all-quizzes").innerHTML += `
-        <div class="quizz id${quizz.data[i].id}" onclick="selectQuizz(this)" data-identifier="quizz-card">
-            <img src="${quizz.data[i].image}" alt="">
-            <p>${quizz.data[i].title}</p>
-        </div>`
+        if (idArray.includes(quizz.data[i].id)) {
+            console.log("achou")
+            //exibe os quizzes criados pelo usuário
+            document.querySelector(".no-quizz").classList.add("hide");
+            document.querySelector(".my-quizzes").classList.remove("hide")
+            document.querySelector(".my-quizzes").innerHTML += `
+                <div class="quizz" onclick="selectQuizz(this)">
+                <img src="${quizz.data[i].image}" alt="">
+                <p>${quizz.data[i].title}</p>
+                </div>`
+        } else {
+            //exibe todos os quizzes
+            document.querySelector(".all-quizzes").innerHTML += `
+            <div class="quizz id${quizz.data[i].id}" onclick="selectQuizz(this)" data-identifier="quizz-card">
+                <img src="${quizz.data[i].image}" alt="">
+                <p>${quizz.data[i].title}</p>
+            </div>`
+        }
+        console.log("to")
     }
 }
 
@@ -453,13 +455,13 @@ function nextQuestion() {
     console.log(allQuestions);
 
     let i = 0;
-    while (allQuestions[i].classList.contains("answered")) {
+    while (allQuestions[i].classList.contains("answered") && i < allQuestions.length - 1) {
         i++
     }
-    console.log("passei do while")
-    setTimeout(() => { allQuestions[i].parentElement.scrollIntoView(); alert("oi"); }, 2000);
 
+    setTimeout(() => { allQuestions[i].parentElement.scrollIntoView(); }, 2000);
 }
+
 function home() {
     window.location.reload()
 }
