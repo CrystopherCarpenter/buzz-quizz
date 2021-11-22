@@ -90,13 +90,18 @@ header{
 }
 
 .quizz {
-    width: 340px;
-    height: 180px;
+    border-radius: 5px;
+    
+    overflow-x: hidden;
+    
     position: relative;
 }
 
 .quizz img {
-    width: 100%;
+    width: 340px;
+    height: 180px;
+    
+    border-radius: 5px;
 
     object-fit: cover;
 }
@@ -110,7 +115,6 @@ header{
     flex-wrap: wrap;
 
     gap: 20px 10px;
-
    
 }
 
@@ -119,6 +123,8 @@ header{
     bottom: 5px;
 
     color: #ffffff;
+
+    z-index: 5;
 }
 
 .quiz-beginning, .questions-creation, .level-creation, .quiz-success{  
@@ -216,17 +222,20 @@ header{
 
     object-fit: cover;
 
-    
     border-radius: 5px;
 }
 
 .quiz-success div{
     margin-top: 15px;
 
+    overflow:hidden;
+
+    border-radius: 5px;
+
     position: relative;
 }
 
-.quiz-success div:after{
+.quiz-success div:after, .quizz:after {
     height: 100%;
     width: 100%;
     content:"";
@@ -295,7 +304,7 @@ header{
 
 .questions-creation-board ion-icon:hover, .level-creation-board ion-icon:hover, .red-button:hover, .home-button:hover, header h1:hover, .quiz-success div:hover{
     cursor: pointer;
-    filter: brightness(0.95);
+    filter: brightness(0.9);
 }
 
 .hide{
