@@ -249,8 +249,6 @@ function levelsCreation() {
     const levelsData = document.querySelectorAll(`.level-creation-board input`);
     let minValue0 = false;
 
-    console.log(levelsData);
-
     for (let i = 0; i < nLevels; i++) {
         let level = { title: ``, image: ``, text: ``, minValue: `` };
         for (let j = 0; j < 4; j++) {
@@ -265,12 +263,9 @@ function levelsCreation() {
                     }
                     break;
                 case 1:
-                    console.log(`case 1`)
                     if (parseInt(aux.value) >= 0 && parseInt(aux.value) <= 100) {
-                        console.log(`case 1 if`, aux.value, parseInt(aux.value));
                         level.minValue = aux.value;
                         if ((parseInt(aux.value)) === 0) {
-                            console.log(`if === 0`);
                             minValue0 = true;
                         }
                     } else {
@@ -350,7 +345,7 @@ function quizzesDisplay(date) {
             document.querySelector(".no-quizz").classList.add("hide");
             document.querySelector(".my-quizzes").classList.remove("hide")
             document.querySelector(".my-quizzes").innerHTML += `
-                <div class="quizz" onclick="selectQuizz(this)">
+                <div class="quizz id${quizz.data[i].id}" onclick="selectQuizz(this)">
                 <img src="${quizz.data[i].image}" alt="">
                 <p>${quizz.data[i].title}</p>
                 </div>`
@@ -473,7 +468,6 @@ function verifyQuizzAnswers() {
 }
 
 function quizzResults(response) {
-
     const correctAnswers = document.querySelectorAll(`.selected.correct`).length;
     const totalQuestions = document.querySelectorAll(`.quizz-question`).length;
     const minLevelValue = response.data.levels;
@@ -481,20 +475,19 @@ function quizzResults(response) {
     let aux = null;
 
     for (let i = 0; i < minLevelValue.length; i++) {
-        if (result === `0`) {
+        if (result === 0) {
             if (minLevelValue[i].minValue === `0`) {
                 aux = i;
             }
         }
-        else if (minLevelValue[i].minValue > result) {
+        else if (parseInt(minLevelValue[i].minValue) > result) {
             continue;
         } else if (aux === null) {
             aux = i;
         }
-        else if (minLevelValue[i].minValue > minLevelValue[aux].minValue) {
+        else if (parseInt(minLevelValue[i].minValue) > parseInt(minLevelValue[aux].minValue)) {
             aux = i;
         }
-
     }
     document.querySelector(`.quizz-page`).innerHTML += `
         <div class="quizz-result" data-identifier="quizz-result">
