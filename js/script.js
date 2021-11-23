@@ -2,6 +2,7 @@ let createdQuizz = { title: ``, image: ``, questions: [], levels: [] };
 const idString = localStorage.getItem(`userIds`);
 let nQuestions;
 let nLevels;
+let y;
 
 function infoValidation() {
     let testTitle;
@@ -27,9 +28,9 @@ function infoValidation() {
         document.querySelector(`.quiz-image-URL`).value = ``;
         document.querySelector(`.number-of-questions`).value = ``;
         document.querySelector(`.number-of-levels`).value = ``;
-    } else (
-        alert(`${testTitle} ${testUrl} ${testQuestions} ${testLevels}`)
-    )
+    } else {
+        alert(`Por favor, verifique e preencha os campos corretamente`)
+    }
 }
 
 function titleValidation(title) {
@@ -77,7 +78,7 @@ function editQuestion(element) {
 
     element.classList.add(`hide`);
     question.innerHTML += `
-    <div><input type="text" placeholder="Texto da pergunta (min 20 letras)" class="question-text">
+    <div><input type="text" placeholder="Texto da pergunta" class="question-text">
                 </input><br>
                 <input type="text" placeholder="Cor de fundo da pergunta" class="question-background-color">
                 </input><br>
@@ -123,7 +124,7 @@ function questionsCreation() {
                     if (aux1.value.length >= 20) {
                         question.title = aux1.value;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente title`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     break;
@@ -131,7 +132,7 @@ function questionsCreation() {
                     if (colorValidation(aux1.value)) {
                         question.color = aux1.value;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente color`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     break;
@@ -140,14 +141,14 @@ function questionsCreation() {
                         answer.text = aux1.value;
                         answer.isCorrectAnswer = true;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente text`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     if (urlValidation(aux2.value)) {
                         answer.image = aux2.value
                         question.answers.push(answer);
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente img`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     break;
@@ -264,11 +265,11 @@ function levelsCreation() {
                 case 1:
                     if (parseInt(aux.value) >= 0 && parseInt(aux.value) <= 100) {
                         level.minValue = aux.value;
-                        if (parseInt(aux.value) === 0) {
+                        if ((parseInt(aux.value)) === 0) {
                             minValue0 = true;
                         }
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente acertos`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     break;
@@ -276,7 +277,7 @@ function levelsCreation() {
                     if (urlValidation(aux.value)) {
                         level.image = aux.value;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente url`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     break;
@@ -284,7 +285,7 @@ function levelsCreation() {
                     if (aux.value.length >= 30) {
                         level.text = aux.value;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente descricao`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     break;
@@ -292,7 +293,7 @@ function levelsCreation() {
                     break;
             }
         }
-        if (minValue0) {
+        if (!minValue0) {
             alert(`Por favor, verifique e preencha os campos corretamente`)
             return;
         }
@@ -339,11 +340,12 @@ function quizzesDisplay(date) {
     idArray = JSON.parse(idString)
     console.log(idArray)
 
-    if (idArray !== null) { 
-        for (i=0;i<idArray.length;i++){
+    if (idArray !== null) {
+        for (i = 0; i < idArray.length; i++) {
             const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idArray[i]}`);
             promise.then(getMyQuizz);
-    }}
+        }
+    }
 
     for (let i = 0; i < quizz.data.length; i++) {
         //exibe todos os quizzes
@@ -352,11 +354,11 @@ function quizzesDisplay(date) {
             <img src="${quizz.data[i].image}" alt="">
             <p>${quizz.data[i].title}</p>
         </div>`
-        
+
     }
 }
 
-function getMyQuizz (myQuizz){
+function getMyQuizz(myQuizz) {
     //exibe os quizzes criados pelo usuário
     document.querySelector(".no-quizz").classList.add("hide");
     document.querySelector(".my-quizzes").classList.remove("hide")
@@ -377,6 +379,8 @@ function changePage(hidePage, showPage) {
 function selectQuizz(id) {
     let x = id.classList.item(1);
     x = x.replace("id", "");
+    y = x;
+
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${x}`);
     promise.then(displayQuizz)
 }
@@ -467,10 +471,61 @@ function verifyQuizzAnswers() {
     const allQuestionsAnswered = document.querySelectorAll(".quizz-question-answers.answered");
 
     if (allQuestionsAnswered.length === allQuestions.length) {
-        console.log(`rodei no if`)
+        const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${y}`);
+        promise.then((response) => {
+            setTimeout(quizzResults, 2000, response)
+        });
     }
+}
 
-    console.log(`rodei`);
+function quizzResults(response) {
+    const correctAnswers = document.querySelectorAll(`.selected.correct`).length;
+    const totalQuestions = document.querySelectorAll(`.quizz-question`).length;
+    const minLevelValue = response.data.levels;
+    const result = Math.round((correctAnswers / totalQuestions) * 100);
+    let aux = null;
+
+    for (let i = 0; i < minLevelValue.length; i++) {
+        if (result === 0) {
+            if (minLevelValue[i].minValue === `0`) {
+                aux = i;
+            }
+        }
+        else if (parseInt(minLevelValue[i].minValue) > result) {
+            continue;
+        } else if (aux === null) {
+            aux = i;
+        }
+        else if (parseInt(minLevelValue[i].minValue) > parseInt(minLevelValue[aux].minValue)) {
+            aux = i;
+        }
+    }
+    document.querySelector(`.quizz-page`).innerHTML += `
+        <div class="quizz-result" data-identifier="quizz-result">
+            <div class="result-title">
+                <p>${result}% de acerto: ${response.data.levels[aux].title}</p>
+            </div>
+            <div class="result"><img src="${response.data.levels[aux].image}" alt="" />
+                <p>${response.data.levels[aux].text}</p>
+            </div>
+        </div>
+        <button type="button" class="red-button id${response.data.id}" onclick="restarQuizz(this)">Reiniciar
+            Quizz</button>
+        <button type="button" class="home-button" onclick="home()">Voltar pra home</button>
+    `;
+
+    document.querySelector(`.quizz-page`).scrollIntoView(false);
+}
+
+function restarQuizz(button) {
+    document.querySelector(`.quizz-page`).innerHTML = `
+        <div class="quizz-title">
+            <div class="opacity-layer">
+            </div>
+        </div>
+        <div class="questions"></div>
+        `;
+    selectQuizz(button);
 }
 
 getQuizzes();

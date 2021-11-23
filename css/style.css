@@ -96,9 +96,7 @@ header{
     filter: brightness(0.9);
 }
 
-.quizz {
-    max-width: 340px;
-    
+.quizz {    
     border-radius: 5px;
     
     overflow-x: hidden;
