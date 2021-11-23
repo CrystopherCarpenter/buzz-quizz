@@ -468,14 +468,13 @@ function verifyQuizzAnswers() {
 }
 
 function quizzResults(response) {
-    console.log(response);
 
     const correctAnswers = document.querySelectorAll(`.selected.correct`).length;
     const totalQuestions = document.querySelectorAll(`.quizz-question`).length;
     const minLevelValue = response.data.levels;
     const result = Math.round((correctAnswers / totalQuestions) * 100);
     let aux = null;
-    console.log(minLevelValue);
+
     for (let i = 0; i < minLevelValue.length; i++) {
         if (result === `0`) {
             if (minLevelValue[i].minValue === `0`) {
@@ -492,7 +491,6 @@ function quizzResults(response) {
         }
 
     }
-    console.log(aux);
     document.querySelector(`.quizz-page`).innerHTML += `
         <div class="quizz-result" data-identifier="quizz-result">
             <div class="result-title">
