@@ -374,17 +374,11 @@ function selectQuizz(id) {
 }
 
 function displayQuizz(selectedQuizz) {
-    console.log("oi")
-    console.log(selectedQuizz);
     changePage(".main-page", ".quizz-page");
 
     document.querySelector(".quizz-title").innerHTML += `
     <p>${selectedQuizz.data.title}</p>`;
     document.querySelector(".quizz-title").style.backgroundImage = `url('${selectedQuizz.data.image}')`;
-
-
-    console.log(selectedQuizz.data.questions[0].answers[0].image)
-
 
     for (let i = 0; i < selectedQuizz.data.questions.length; i++) {
 
@@ -395,7 +389,6 @@ function displayQuizz(selectedQuizz) {
         }
 
         randomIndex.sort(() => Math.random() - 0.5);
-        console.log(randomIndex);
 
         let divAnswers = "";
 
@@ -448,7 +441,6 @@ function selectAnswer(item) {
 
 function nextQuestion() {
     const allQuestions = document.querySelectorAll(".quizz-question-answers");
-    console.log(allQuestions);
 
     let i = 0;
     while (allQuestions[i].classList.contains("answered") && i < allQuestions.length - 1) {
