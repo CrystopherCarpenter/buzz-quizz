@@ -336,13 +336,10 @@ function getQuizzes() {
 
 function quizzesDisplay(date) {
     let quizz = date;
-    console.log(quizz);
-    console.log(idString);
     idArray = JSON.parse(idString)
     
     for (let i = 0; i < quizz.data.length; i++) {
         if (idArray.includes(quizz.data[i].id)) {
-            console.log("achou")
             //exibe os quizzes criados pelo usuário
                 document.querySelector(".no-quizz").classList.add("hide");
                 document.querySelector(".my-quizzes").classList.remove("hide")
@@ -359,7 +356,6 @@ function quizzesDisplay(date) {
                 <p>${quizz.data[i].title}</p>
             </div>`
         }
-    console.log("to")
     }
 }
 
