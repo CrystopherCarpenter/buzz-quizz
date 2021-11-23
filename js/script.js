@@ -29,7 +29,7 @@ function infoValidation() {
         document.querySelector(`.number-of-questions`).value = ``;
         document.querySelector(`.number-of-levels`).value = ``;
     } else (
-        alert(`${testTitle} ${testUrl} ${testQuestions} ${testLevels}`)
+        alert(`Por favor, verifique e preencha os campos corretamente`)
     )
 }
 
@@ -124,7 +124,7 @@ function questionsCreation() {
                     if (aux1.value.length >= 20) {
                         question.title = aux1.value;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente title`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     break;
@@ -132,7 +132,7 @@ function questionsCreation() {
                     if (colorValidation(aux1.value)) {
                         question.color = aux1.value;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente color`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     break;
@@ -141,14 +141,14 @@ function questionsCreation() {
                         answer.text = aux1.value;
                         answer.isCorrectAnswer = true;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente text`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     if (urlValidation(aux2.value)) {
                         answer.image = aux2.value
                         question.answers.push(answer);
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente img`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     break;
