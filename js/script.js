@@ -338,7 +338,6 @@ function getQuizzes() {
 function quizzesDisplay(date) {
     let quizz = date;
     idArray = JSON.parse(idString)
-    console.log(idArray)
 
     if (idArray !== null) {
         for (i = 0; i < idArray.length; i++) {

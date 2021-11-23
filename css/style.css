@@ -97,6 +97,9 @@ header{
 }
 
 .quizz {    
+
+    max-width: 340px;
+
     border-radius: 5px;
     
     overflow-x: hidden;
@@ -114,11 +117,17 @@ header{
 }
 
 .my-quizzes {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 20px 10px;
+
     width: 100%;
     text-align: left;
 }
 
 .my-quizzes-header {
+    width: 100vw;
     display: flex;
     margin-bottom: 10px;
 }
