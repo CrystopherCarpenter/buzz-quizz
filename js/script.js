@@ -249,7 +249,7 @@ function levelsCreation() {
     let minValue0 = false;
 
     for (let i = 0; i < nLevels; i++) {
-        let level = { title: ``, image: ``, text: ``, minValue: ``};
+        let level = { title: ``, image: ``, text: ``, minValue: `` };
         for (let j = 0; j < 4; j++) {
             let aux = levelsData[(4 * i) + j];
             switch (j) {
@@ -337,19 +337,19 @@ function getQuizzes() {
 function quizzesDisplay(date) {
     let quizz = date;
     idArray = JSON.parse(idString)
-    
+
     for (let i = 0; i < quizz.data.length; i++) {
         if (idArray.includes(quizz.data[i].id)) {
             //exibe os quizzes criados pelo usuário
-                document.querySelector(".no-quizz").classList.add("hide");
-                document.querySelector(".my-quizzes").classList.remove("hide")
-                document.querySelector(".my-quizzes").innerHTML += `
+            document.querySelector(".no-quizz").classList.add("hide");
+            document.querySelector(".my-quizzes").classList.remove("hide")
+            document.querySelector(".my-quizzes").innerHTML += `
                 <div class="quizz" onclick="selectQuizz(this)">
                 <img src="${quizz.data[i].image}" alt="">
                 <p>${quizz.data[i].title}</p>
                 </div>`
         } else {
-        //exibe todos os quizzes
+            //exibe todos os quizzes
             document.querySelector(".all-quizzes").innerHTML += `
             <div class="quizz id${quizz.data[i].id}" onclick="selectQuizz(this)" data-identifier="quizz-card">
                 <img src="${quizz.data[i].image}" alt="">
@@ -400,7 +400,7 @@ function displayQuizz(selectedQuizz) {
         let divAnswers = "";
 
         for (let j = 0; j < selectedQuizz.data.questions[i].answers.length; j++) {
-            divAnswers += `<div class="quizz-answer ${selectedQuizz.data.questions[i].answers[randomIndex[j]].isCorrectAnswer}" onclick="selectAnswer(this)">
+            divAnswers += `<div class="quizz-answer ${selectedQuizz.data.questions[i].answers[randomIndex[j]].isCorrectAnswer}" onclick="selectAnswer(this); verifyQuizzAnswers();">
                 <img src="${selectedQuizz.data.questions[i].answers[randomIndex[j]].image}" alt=""> 
                 <p>${selectedQuizz.data.questions[i].answers[randomIndex[j]].text}</p>
             </div>`
@@ -451,17 +451,30 @@ function nextQuestion() {
     console.log(allQuestions);
 
     let i = 0;
-    while (allQuestions[i].classList.contains("answered") && i<allQuestions.length-1) {
+    while (allQuestions[i].classList.contains("answered") && i < allQuestions.length - 1) {
         i++
     }
-    
-    
-    setTimeout(() => { allQuestions[i].parentElement.scrollIntoView(); }, 2000);
 
+    setTimeout(() => { allQuestions[i].parentElement.scrollIntoView(); }, 2000);
 }
 
 function home() {
     window.location.reload()
 }
 
+function verifyQuizzAnswers() {
+    const allQuestions = document.querySelectorAll(".quizz-question-answers")
+    const allQuestionsAnswered = document.querySelectorAll(".quizz-question-answers.answered");
+
+    if (allQuestionsAnswered.length === allQuestions.length) {
+        console.log(`rodei no if`)
+    }
+
+    console.log(`rodei`);
+}
+
 getQuizzes();
+
+
+
+
