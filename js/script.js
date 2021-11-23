@@ -78,7 +78,7 @@ function editQuestion(element) {
 
     element.classList.add(`hide`);
     question.innerHTML += `
-    <div><input type="text" placeholder="Texto da pergunta (min 20 letras)" class="question-text">
+    <div><input type="text" placeholder="Texto da pergunta" class="question-text">
                 </input><br>
                 <input type="text" placeholder="Cor de fundo da pergunta" class="question-background-color">
                 </input><br>
@@ -249,6 +249,8 @@ function levelsCreation() {
     const levelsData = document.querySelectorAll(`.level-creation-board input`);
     let minValue0 = false;
 
+    console.log(levelsData);
+
     for (let i = 0; i < nLevels; i++) {
         let level = { title: ``, image: ``, text: ``, minValue: `` };
         for (let j = 0; j < 4; j++) {
@@ -258,18 +260,21 @@ function levelsCreation() {
                     if (aux.value.length >= 10) {
                         level.title = aux.value;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente pergunta`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     break;
                 case 1:
+                    console.log(`case 1`)
                     if (parseInt(aux.value) >= 0 && parseInt(aux.value) <= 100) {
+                        console.log(`case 1 if`, aux.value, parseInt(aux.value));
                         level.minValue = aux.value;
-                        if (parseInt(aux.value) === 0) {
+                        if ((parseInt(aux.value)) === 0) {
+                            console.log(`if === 0`);
                             minValue0 = true;
                         }
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente acertos`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     break;
@@ -277,7 +282,7 @@ function levelsCreation() {
                     if (urlValidation(aux.value)) {
                         level.image = aux.value;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente url`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     break;
@@ -285,7 +290,7 @@ function levelsCreation() {
                     if (aux.value.length >= 30) {
                         level.text = aux.value;
                     } else {
-                        alert(`Por favor, verifique e preencha os campos corretamente descricao`)
+                        alert(`Por favor, verifique e preencha os campos corretamente`)
                         return;
                     }
                     break;
@@ -293,7 +298,7 @@ function levelsCreation() {
                     break;
             }
         }
-        if (minValue0) {
+        if (!minValue0) {
             alert(`Por favor, verifique e preencha os campos corretamente`)
             return;
         }
