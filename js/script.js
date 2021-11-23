@@ -1,5 +1,6 @@
 let createdQuizz = { title: ``, image: ``, questions: [], levels: [] };
 const idString = localStorage.getItem(`userIds`);
+let x;
 let nQuestions;
 let nLevels;
 
@@ -371,7 +372,7 @@ function changePage(hidePage, showPage) {
 }
 
 function selectQuizz(id) {
-    let x = id.classList.item(1);
+    x = id.classList.item(1);
     x = x.replace("id", "");
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${x}`);
     promise.then(displayQuizz)
@@ -471,14 +472,66 @@ function verifyQuizzAnswers() {
     const allQuestionsAnswered = document.querySelectorAll(".quizz-question-answers.answered");
 
     if (allQuestionsAnswered.length === allQuestions.length) {
-        console.log(`rodei no if`)
+        const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${x}`);
+        promise.then((response) => {
+            setTimeout(quizzResults, 2000, response)
+        });
     }
+}
 
-    console.log(`rodei`);
+function quizzResults(response) {
+    console.log(response);
+
+    const correctAnswers = document.querySelectorAll(`.selected.correct`).length;
+    const totalQuestions = document.querySelectorAll(`.quizz-question`).length;
+    const minLevelValue = response.data.levels;
+    const result = Math.round((correctAnswers / totalQuestions) * 100);
+    let aux = null;
+    console.log(minLevelValue);
+    for (let i = 0; i < minLevelValue.length; i++) {
+        if (result === `0`) {
+            if (minLevelValue[i].minValue === `0`) {
+                aux = i;
+            }
+        }
+        else if (minLevelValue[i].minValue > result) {
+            continue;
+        } else if (aux === null) {
+            aux = i;
+        }
+        else if (minLevelValue[i].minValue > minLevelValue[aux].minValue) {
+            aux = i;
+        }
+
+    }
+    console.log(aux);
+    document.querySelector(`.quizz-page`).innerHTML += `
+        <div class="quizz-result" data-identifier="quizz-result">
+            <div class="result-title">
+                <p>${result}% de acerto: ${response.data.levels[aux].title}</p>
+            </div>
+            <div class="result"><img src="${response.data.levels[aux].image}" alt="" />
+                <p>${response.data.levels[aux].text}</p>
+            </div>
+        </div>
+        <button type="button" class="red-button id${response.data.id}" onclick="restarQuizz(this)">Reiniciar
+            Quizz</button>
+        <button type="button" class="home-button" onclick="home()">Voltar pra home</button>
+    `;
+
+    document.querySelector(`.quizz-page`).scrollIntoView(false);
+}
+
+function restarQuizz(button) {
+    document.querySelector(`.quizz-page`).innerHTML = `
+
+        <div class="quizz-title">
+            <div class="opacity-layer">
+            </div>
+        </div>
+        <div class="questions"></div>
+        `;
+    selectQuizz(button);
 }
 
 getQuizzes();
-
-
-
-

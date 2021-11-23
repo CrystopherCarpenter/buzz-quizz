@@ -334,6 +334,7 @@ header{
     width: 100%;
 
     background-color: #e5e5e5;
+    
 }
 
 .questions {
@@ -440,6 +441,76 @@ header{
     color: red;
 }
 
+.quizz-result{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 18px;
+
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    
+    width: 759px;
+    
+    margin: 44px auto;
+}
+
+.result-title{
+    width: 100%;
+    height: 99px;
+
+    background-color: #EC362D;
+
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    
+    margin-bottom: 18px;
+}
+.result-title p{
+    font-weight: bold;
+    font-size: 23px;
+    text-align: center;
+    
+    margin: auto;
+    color: #FFFFFF;
+    overflow: wrap;
+}
+
+.result{
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;    
+}
+.result img{
+    width: 364px;
+    height: 273px;
+    object-fit: cover;
+
+    margin-right: 18px;
+}
+
+.result p{
+    display: flex;
+    
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 25px;
+
+    overflow: wrap;
+
+    color: #484848;
+}
+
+.quizz-page button{
+    margin: 15px auto;
+}
+
 @media (max-width: 1100px) {
     .quiz-beginning, .questions-creation, .level-creation, .quiz-success{
         padding-top: 38px;
@@ -475,5 +546,18 @@ header{
     
     .quiz-beginning button, .questions-creation button, .level-creation button, .quiz-success .red-button{
         margin-top: 30px;
-}   
+    } 
+
+    .quizz-result{
+        width: 100%;
+    }
+
+    .result{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .result img{
+        margin: 15px auto;
+    }
 }
